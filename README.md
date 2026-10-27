@@ -1,6 +1,6 @@
 # um-section-2
 
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/jaredcosulich/um-section-2?quickstart=1)
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/codeyam-ai/um-section-2?quickstart=1)
 
 Hallway (working name): a place where recent and soon-to-be grads pick a career
 field, find a professional working in it, and book a short chat for advice.
