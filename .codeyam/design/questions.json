@@ -1,0 +1,47 @@
+{
+  "title": "Quick questions before I design this",
+  "lede": "A place where recent and soon-to-be grads pick a career area, find a professional in it, and get advice (with helpers able to earn for their time). It should feel social and fun, but clean and simpler than LinkedIn.",
+  "questions": [
+    { "id": "surface", "type": "single", "title": "Phone or computer first?",
+      "why": "Your answers picked a phone app, but your description says to start with a web app. The layout changes a lot between the two.",
+      "options": [
+        { "label": "Phone", "detail": "Designed for a phone held in one hand" },
+        { "label": "Web, on a computer", "detail": "A wider screen, more visible at once" }
+      ] },
+    { "id": "page", "type": "single", "title": "Which moment of the starting page should I show?",
+      "why": "You described two clicks: pick an area of interest, then pick a professional. I can show either step, or both on one screen.",
+      "options": [
+        { "label": "Both on one screen", "detail": "Areas at the top, professionals below update as you pick" },
+        { "label": "Picking an area", "detail": "The very first thing a student sees" },
+        { "label": "Browsing professionals in an area", "detail": "After they picked, say, Marketing" }
+      ] },
+    { "id": "look", "type": "personality", "title": "What should it feel like?",
+      "why": "You said social and fun but clean. These help me find where between those it should sit.",
+      "sliders": [ ["Playful", "Polished", 40], ["Warm", "Cool", 40], ["Airy", "Dense", 25] ],
+      "moreSliders": [ ["Young and casual", "Career-serious"], ["Quiet colors", "Bold colors"] ],
+      "words": ["Friendly", "Encouraging", "Trustworthy", "Energetic", "Calm", "Optimistic"],
+      "moreWords": ["Personal", "Premium", "Approachable", "Confident"],
+      "maxWords": 4,
+      "textPlaceholder": "e.g. Like texting a friend's older sibling for advice" },
+    { "id": "money", "type": "single", "title": "How visible should paying for help be on this page?",
+      "why": "Helpers can get paid. Showing prices up front sets expectations; hiding them keeps the first page friendlier.",
+      "options": [
+        { "label": "Show a price or 'free' on each person" },
+        { "label": "Hint at it lightly", "detail": "A small badge, details later" },
+        { "label": "Keep it off this page" }
+      ] },
+    { "id": "count", "type": "single", "title": "How many directions should I design?",
+      "why": "More directions, more range; fewer, faster to compare.",
+      "options": [ { "label": "2" }, { "label": "4" }, { "label": "6", "detail": "Recommended" }, { "label": "8" } ] },
+    { "id": "extra", "type": "free", "title": "Anything fixed or off-limits?",
+      "why": "Optional. A product name, a color you love or hate, or a look you never want.",
+      "placeholder": "e.g. It's called Bridge, and please no navy and gold" }
+  ],
+  "defaults": {
+    "surface": "Phone",
+    "page": "Both on one screen",
+    "look": { "words": ["Friendly", "Encouraging", "Trustworthy"] },
+    "money": "Hint at it lightly",
+    "count": "6"
+  }
+}

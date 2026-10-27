@@ -1,0 +1,56 @@
+{
+  "answers": {
+    "count": [
+      "6"
+    ],
+    "look": {
+      "sliders": {},
+      "text": "",
+      "words": [
+        "Friendly",
+        "Trustworthy",
+        "Calm"
+      ]
+    },
+    "money": [
+      "Show a price or 'free' on each person"
+    ],
+    "page": [
+      "Both on one screen",
+      "Picking an area"
+    ],
+    "surface": [
+      "Web, on a computer"
+    ]
+  },
+  "own": {
+    "page": "Build out the landing page and new user experience to start."
+  },
+  "summary": [
+    {
+      "answer": "Web, on a computer",
+      "id": "surface",
+      "title": "Phone or computer first?"
+    },
+    {
+      "answer": "Both on one screen, Picking an area, Build out the landing page and new user experience to start.",
+      "id": "page",
+      "title": "Which moment of the starting page should I show?"
+    },
+    {
+      "answer": "friendly, trustworthy, calm",
+      "id": "look",
+      "title": "What should it feel like?"
+    },
+    {
+      "answer": "Show a price or 'free' on each person",
+      "id": "money",
+      "title": "How visible should paying for help be on this page?"
+    },
+    {
+      "answer": "6",
+      "id": "count",
+      "title": "How many directions should I design?"
+    }
+  ]
+}

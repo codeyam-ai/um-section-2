@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="codeyam-viewport" content="desktop">
+<title>Fill in the sentence</title>
+<style>
+:root {
+  --canvas: #f3f6fb;
+  --surface: #ffffff;
+  --tint: #dfe8f6;
+  --ink: #1b2540;
+  --text-2: #55607a;
+  --line: #cfd8e6;
+  --marigold: #f2b233;
+  --marigold-soft: #fcebc4;
+  --on-accent: #1b2540;
+  --shadow: 0 18px 40px -18px rgba(27, 37, 64, 0.28);
+  --font: 'SF Pro Rounded', ui-rounded, 'Nunito', 'Varela Round', 'Quicksand', system-ui, sans-serif;
+  --r-lg: 28px;
+  --r-md: 18px;
+  --r-pill: 999px;
+  --grain: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMjAiIGhlaWdodD0iMjIwIj48ZmlsdGVyIGlkPSJuIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjkiIG51bU9jdGF2ZXM9IjIiIHN0aXRjaFRpbGVzPSJzdGl0Y2giLz48ZmVDb2xvck1hdHJpeCB2YWx1ZXM9IjAgMCAwIDAgMC4xICAwIDAgMCAwIDAuMTQgIDAgMCAwIDAgMC4yNSAgMCAwIDAgLjA3IDAiLz48L2ZpbHRlcj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWx0ZXI9InVybCgjbikiLz48L3N2Zz4=');
+}
+:root[data-theme="dark"] {
+  --canvas: #121826;
+  --surface: #1b2233;
+  --tint: #232c42;
+  --ink: #eef2fa;
+  --text-2: #a3adc4;
+  --line: #313b54;
+  --marigold: #f5c055;
+  --marigold-soft: #3a3221;
+  --on-accent: #121826;
+  --shadow: 0 18px 40px -18px rgba(0, 0, 0, 0.6);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; margin: 0; }
+body { background: var(--grain), var(--canvas); color: var(--ink); font: 17px/1.55 var(--font); -webkit-font-smoothing: antialiased; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; cursor: pointer; background: none; border: 0; }
+:focus-visible { outline: 3px solid var(--marigold); outline-offset: 3px; border-radius: 8px; }
+.wrap { max-width: 1180px; margin: 0 auto; padding: 0 48px; }
+
+header { height: 76px; display: flex; align-items: center; justify-content: space-between; }
+.brand { font-weight: 800; font-size: 22px; letter-spacing: -0.02em; display: flex; gap: 8px; align-items: center; }
+.brand svg { color: var(--marigold); }
+nav { display: flex; gap: 26px; font-size: 15px; color: var(--text-2); align-items: center; }
+nav .btn { color: var(--on-accent); }
+
+.btn { display: inline-flex; align-items: center; gap: 10px; background: var(--marigold); color: var(--on-accent); font-weight: 700; border-radius: var(--r-pill); padding: 12px 22px; white-space: nowrap; transition: transform .12s; }
+.btn:active { transform: scale(.98); }
+.btn.big { font-size: 19px; padding: 16px 28px; }
+.btn.ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 2px var(--line); }
+
+.hero { padding: 56px 0 40px; position: relative; }
+.sentence { font-size: 54px; line-height: 1.32; font-weight: 700; letter-spacing: -0.03em; max-width: 22ch; }
+.sentence .quiet { color: var(--text-2); font-weight: 600; }
+.slot { display: inline-flex; align-items: center; gap: 6px; color: var(--ink); border-bottom: 5px solid var(--marigold); padding: 0 2px; line-height: 1.05; position: relative; }
+.slot svg { color: var(--marigold); }
+.slot.open { background: var(--marigold-soft); border-radius: 12px 12px 0 0; padding: 0 10px; }
+.anchor { position: relative; display: inline-block; }
+.menu { margin-top: 28px; max-width: 760px; background: var(--surface); border-radius: var(--r-lg); box-shadow: var(--shadow); padding: 18px; font-size: 16px; letter-spacing: 0; line-height: 1.3; }
+.menu .mt { font-size: 14px; color: var(--text-2); font-weight: 600; padding: 4px 10px 12px; }
+.menu ul { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+.opt { width: 100%; display: flex; align-items: center; gap: 10px; padding: 10px; border-radius: 12px; font-weight: 600; text-align: left; }
+.opt svg { color: var(--text-2); flex: none; }
+.opt:hover { background: var(--tint); }
+.opt.on { background: var(--marigold); color: var(--on-accent); }
+.opt.on svg { color: var(--on-accent); }
+.go { margin-top: 32px; display: flex; gap: 14px; align-items: center; }
+.go small { color: var(--text-2); font-size: 15px; margin-left: 8px; }
+
+.results { padding: 72px 0 24px; }
+h2 { font-size: 34px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.15; text-wrap: balance; }
+.sub { color: var(--text-2); margin-top: 8px; }
+.trio { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 44px; align-items: start; }
+.f1 { margin-top: 72px; }
+.f2 { margin-top: 28px; }
+.frame { position: relative; margin: 0 14px 22px 0; }
+.frame::before { content: ""; position: absolute; inset: 14px -14px -14px 14px; border-radius: var(--r-lg); background: var(--marigold-soft); }
+.f1 .frame::before { background: var(--tint); }
+.frame .photo { position: relative; aspect-ratio: 4 / 4.6; border-radius: var(--r-lg); }
+.f h3 { font-size: 24px; font-weight: 800; letter-spacing: -0.02em; }
+.role { color: var(--text-2); font-size: 15px; margin-top: 2px; }
+.helps { font-size: 16px; margin-top: 10px; }
+.row { display: flex; align-items: center; gap: 16px; margin-top: 16px; }
+.price { font-weight: 800; font-size: 15px; font-variant-numeric: tabular-nums; background: var(--surface); box-shadow: inset 0 0 0 2px var(--line); padding: 5px 12px; border-radius: var(--r-pill); white-space: nowrap; }
+.price.free { background: var(--marigold-soft); box-shadow: none; }
+.link { font-weight: 700; border-bottom: 2px solid var(--marigold); }
+
+.more { margin: 56px 0 0; display: flex; align-items: center; gap: 18px; background: var(--surface); border-radius: var(--r-pill); padding: 10px 12px 10px 14px; width: fit-content; box-shadow: var(--shadow); }
+.av { width: 44px; height: 44px; border-radius: 50%; border: 3px solid var(--surface); margin-left: -16px; }
+.av:first-child { margin-left: 0; }
+.more span.t { font-weight: 700; }
+
+.faq { margin: 88px 0 56px; display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 48px; }
+details { border-top: 2px solid var(--line); padding: 18px 0; }
+details:last-child { border-bottom: 2px solid var(--line); }
+summary { font-weight: 700; font-size: 19px; cursor: pointer; list-style: none; display: flex; justify-content: space-between; }
+summary::after { content: "+"; color: var(--marigold); font-weight: 800; }
+details[open] summary::after { content: "\2212"; }
+details p { color: var(--text-2); margin-top: 8px; max-width: 56ch; }
+
+footer { padding: 24px 0 40px; color: var(--text-2); font-size: 14px; display: flex; justify-content: space-between; }
+@media (max-width: 900px) {
+  .wrap { padding: 0 16px; }
+  .sentence { font-size: 34px; }
+  .menu ul { grid-template-columns: 1fr 1fr; }
+  .trio, .faq { grid-template-columns: 1fr; }
+  .f1, .f2 { margin-top: 0; }
+  nav a:not(.btn) { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+.ph-0,.photo.ph-0{background-image:url('https://loremflickr.com/480/480/portrait,woman,smiling?lock=31'),url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48ZGVmcz48cmFkaWFsR3JhZGllbnQgaWQ9ImwiIGN4PSIzNSUiIGN5PSIyNSUiIHI9IjgwJSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmIiBzdG9wLW9wYWNpdHk9Ii41NSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2ZmZiIgc3RvcC1vcGFjaXR5PSIwIi8+PC9yYWRpYWxHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9ImYiIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNmZmYiIHN0b3Atb3BhY2l0eT0iLjE4Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMDAwIiBzdG9wLW9wYWNpdHk9Ii4xMiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjZDhlNmUxIi8+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9InVybCgjbCkiLz48Y2lyY2xlIGN4PSIxMDAiIGN5PSI3OCIgcj0iNTAiIGZpbGw9IiMxZjE0MTAiLz48Y2lyY2xlIGN4PSI2MiIgY3k9Ijk2IiByPSIyMiIgZmlsbD0iIzFmMTQxMCIvPjxjaXJjbGUgY3g9IjEzOCIgY3k9Ijk2IiByPSIyMiIgZmlsbD0iIzFmMTQxMCIvPjxjaXJjbGUgY3g9Ijc2IiBjeT0iNTgiIHI9IjIyIiBmaWxsPSIjMWYxNDEwIi8+PGNpcmNsZSBjeD0iMTI0IiBjeT0iNTgiIHI9IjIyIiBmaWxsPSIjMWYxNDEwIi8+PHBhdGggZD0iTTI4IDIwMCBDMzAgMTU4IDYwIDE0MCAxMDAgMTQwIEMxNDAgMTQwIDE3MCAxNTggMTcyIDIwMCBaIiBmaWxsPSIjZTliOTQ5Ii8+PHBhdGggZD0iTTg0IDEyMiBMMTE2IDEyMiBMMTE0IDE0OCBDMTA2IDE1NiA5NCAxNTYgODYgMTQ4IFoiIGZpbGw9IiM4ZDVhM2IiLz48cGF0aCBkPSJNODYgMTQwIEM5NCAxNTAgMTA2IDE1MCAxMTQgMTQwIEwxMTIgMTQ4IEMxMDQgMTU2IDk2IDE1NiA4OCAxNDggWiIgZmlsbD0iIzAwMCIgb3BhY2l0eT0iLjEyIi8+PGVsbGlwc2UgY3g9IjEwMCIgY3k9Ijk2IiByeD0iMzQiIHJ5PSI0MCIgZmlsbD0iIzhkNWEzYiIvPjxlbGxpcHNlIGN4PSI2NiIgY3k9IjEwMCIgcng9IjYiIHJ5PSI5IiBmaWxsPSIjOGQ1YTNiIi8+PGVsbGlwc2UgY3g9IjEzNCIgY3k9IjEwMCIgcng9IjYiIHJ5PSI5IiBmaWxsPSIjOGQ1YTNiIi8+PGVsbGlwc2UgY3g9IjEwMCIgY3k9Ijk2IiByeD0iMzQiIHJ5PSI0MCIgZmlsbD0idXJsKCNmKSIvPjxlbGxpcHNlIGN4PSI4NyIgY3k9Ijk4IiByeD0iMyIgcnk9IjMuNCIgZmlsbD0iIzJhMWQxOCIvPjxlbGxpcHNlIGN4PSIxMTMiIGN5PSI5OCIgcng9IjMiIHJ5PSIzLjQiIGZpbGw9IiMyYTFkMTgiLz48cGF0aCBkPSJNODkgMTE3IEM5NSAxMjIgMTA1IDEyMiAxMTEgMTE3IiBzdHJva2U9IiM1YTJlMjIiIHN0cm9rZS13aWR0aD0iMi42IiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48L3N2Zz4=');background-size:cover;background-position:center}
+.ph-1,.photo.ph-1{background-image:url('https://loremflickr.com/480/480/portrait,man,beard?lock=17'),url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48ZGVmcz48cmFkaWFsR3JhZGllbnQgaWQ9ImwiIGN4PSIzNSUiIGN5PSIyNSUiIHI9IjgwJSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmIiBzdG9wLW9wYWNpdHk9Ii41NSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2ZmZiIgc3RvcC1vcGFjaXR5PSIwIi8+PC9yYWRpYWxHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9ImYiIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNmZmYiIHN0b3Atb3BhY2l0eT0iLjE4Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMDAwIiBzdG9wLW9wYWNpdHk9Ii4xMiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjZTZkY2NkIi8+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9InVybCgjbCkiLz48cGF0aCBkPSJNMjggMjAwIEMzMCAxNTggNjAgMTQwIDEwMCAxNDAgQzE0MCAxNDAgMTcwIDE1OCAxNzIgMjAwIFoiIGZpbGw9IiMzZDZiOGYiLz48cGF0aCBkPSJNODQgMTIyIEwxMTYgMTIyIEwxMTQgMTQ4IEMxMDYgMTU2IDk0IDE1NiA4NiAxNDggWiIgZmlsbD0iI2M1OGM2MiIvPjxwYXRoIGQ9Ik04NiAxNDAgQzk0IDE1MCAxMDYgMTUwIDExNCAxNDAgTDExMiAxNDggQzEwNCAxNTYgOTYgMTU2IDg4IDE0OCBaIiBmaWxsPSIjMDAwIiBvcGFjaXR5PSIuMTIiLz48ZWxsaXBzZSBjeD0iMTAwIiBjeT0iOTYiIHJ4PSIzNCIgcnk9IjQwIiBmaWxsPSIjYzU4YzYyIi8+PGVsbGlwc2UgY3g9IjY2IiBjeT0iMTAwIiByeD0iNiIgcnk9IjkiIGZpbGw9IiNjNThjNjIiLz48ZWxsaXBzZSBjeD0iMTM0IiBjeT0iMTAwIiByeD0iNiIgcnk9IjkiIGZpbGw9IiNjNThjNjIiLz48ZWxsaXBzZSBjeD0iMTAwIiBjeT0iOTYiIHJ4PSIzNCIgcnk9IjQwIiBmaWxsPSJ1cmwoI2YpIi8+PHBhdGggZD0iTTYyIDg0IEM2MCA1NCA4MiA0NCAxMDAgNDQgQzEyMCA0NCAxNDAgNTQgMTM4IDg0IEMxMjYgNzAgNzYgNzAgNjIgODQgWiIgZmlsbD0iIzJiMWQxNiIvPjxlbGxpcHNlIGN4PSI4NyIgY3k9Ijk4IiByeD0iMyIgcnk9IjMuNCIgZmlsbD0iIzJhMWQxOCIvPjxlbGxpcHNlIGN4PSIxMTMiIGN5PSI5OCIgcng9IjMiIHJ5PSIzLjQiIGZpbGw9IiMyYTFkMTgiLz48cGF0aCBkPSJNODkgMTE3IEM5NSAxMjIgMTA1IDEyMiAxMTEgMTE3IiBzdHJva2U9IiM1YTJlMjIiIHN0cm9rZS13aWR0aD0iMi42IiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48L3N2Zz4=');background-size:cover;background-position:center}
+.ph-2,.photo.ph-2{background-image:url('https://loremflickr.com/480/480/portrait,woman,office?lock=44'),url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48ZGVmcz48cmFkaWFsR3JhZGllbnQgaWQ9ImwiIGN4PSIzNSUiIGN5PSIyNSUiIHI9IjgwJSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmIiBzdG9wLW9wYWNpdHk9Ii41NSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2ZmZiIgc3RvcC1vcGFjaXR5PSIwIi8+PC9yYWRpYWxHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9ImYiIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNmZmYiIHN0b3Atb3BhY2l0eT0iLjE4Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMDAwIiBzdG9wLW9wYWNpdHk9Ii4xMiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjZTRlMWVlIi8+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9InVybCgjbCkiLz48cGF0aCBkPSJNNTAgOTYgQzUwIDUwIDc1IDM2IDEwMCAzNiBDMTI1IDM2IDE1MCA1MCAxNTAgOTYgTDE1NiAxNzAgTDQ0IDE3MCBaIiBmaWxsPSIjMTIwYzBhIi8+PHBhdGggZD0iTTI4IDIwMCBDMzAgMTU4IDYwIDE0MCAxMDAgMTQwIEMxNDAgMTQwIDE3MCAxNTggMTcyIDIwMCBaIiBmaWxsPSIjN2EzYjUyIi8+PHBhdGggZD0iTTg0IDEyMiBMMTE2IDEyMiBMMTE0IDE0OCBDMTA2IDE1NiA5NCAxNTYgODYgMTQ4IFoiIGZpbGw9IiNhODZmNGMiLz48cGF0aCBkPSJNODYgMTQwIEM5NCAxNTAgMTA2IDE1MCAxMTQgMTQwIEwxMTIgMTQ4IEMxMDQgMTU2IDk2IDE1NiA4OCAxNDggWiIgZmlsbD0iIzAwMCIgb3BhY2l0eT0iLjEyIi8+PGVsbGlwc2UgY3g9IjEwMCIgY3k9Ijk2IiByeD0iMzQiIHJ5PSI0MCIgZmlsbD0iI2E4NmY0YyIvPjxlbGxpcHNlIGN4PSI2NiIgY3k9IjEwMCIgcng9IjYiIHJ5PSI5IiBmaWxsPSIjYTg2ZjRjIi8+PGVsbGlwc2UgY3g9IjEzNCIgY3k9IjEwMCIgcng9IjYiIHJ5PSI5IiBmaWxsPSIjYTg2ZjRjIi8+PGVsbGlwc2UgY3g9IjEwMCIgY3k9Ijk2IiByeD0iMzQiIHJ5PSI0MCIgZmlsbD0idXJsKCNmKSIvPjxlbGxpcHNlIGN4PSI4NyIgY3k9Ijk4IiByeD0iMyIgcnk9IjMuNCIgZmlsbD0iIzJhMWQxOCIvPjxlbGxpcHNlIGN4PSIxMTMiIGN5PSI5OCIgcng9IjMiIHJ5PSIzLjQiIGZpbGw9IiMyYTFkMTgiLz48cGF0aCBkPSJNODkgMTE3IEM5NSAxMjIgMTA1IDEyMiAxMTEgMTE3IiBzdHJva2U9IiM1YTJlMjIiIHN0cm9rZS13aWR0aD0iMi42IiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48L3N2Zz4=');background-size:cover;background-position:center}
+.ph-3,.photo.ph-3{background-image:url('https://loremflickr.com/480/480/portrait,man,glasses?lock=8'),url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48ZGVmcz48cmFkaWFsR3JhZGllbnQgaWQ9ImwiIGN4PSIzNSUiIGN5PSIyNSUiIHI9IjgwJSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmIiBzdG9wLW9wYWNpdHk9Ii41NSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2ZmZiIgc3RvcC1vcGFjaXR5PSIwIi8+PC9yYWRpYWxHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9ImYiIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNmZmYiIHN0b3Atb3BhY2l0eT0iLjE4Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMDAwIiBzdG9wLW9wYWNpdHk9Ii4xMiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjZGZlOWQ2Ii8+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9InVybCgjbCkiLz48cGF0aCBkPSJNMjggMjAwIEMzMCAxNTggNjAgMTQwIDEwMCAxNDAgQzE0MCAxNDAgMTcwIDE1OCAxNzIgMjAwIFoiIGZpbGw9IiMyZjRhM2EiLz48cGF0aCBkPSJNODQgMTIyIEwxMTYgMTIyIEwxMTQgMTQ4IEMxMDYgMTU2IDk0IDE1NiA4NiAxNDggWiIgZmlsbD0iI2U2YmZhMCIvPjxwYXRoIGQ9Ik04NiAxNDAgQzk0IDE1MCAxMDYgMTUwIDExNCAxNDAgTDExMiAxNDggQzEwNCAxNTYgOTYgMTU2IDg4IDE0OCBaIiBmaWxsPSIjMDAwIiBvcGFjaXR5PSIuMTIiLz48ZWxsaXBzZSBjeD0iMTAwIiBjeT0iOTYiIHJ4PSIzNCIgcnk9IjQwIiBmaWxsPSIjZTZiZmEwIi8+PGVsbGlwc2UgY3g9IjY2IiBjeT0iMTAwIiByeD0iNiIgcnk9IjkiIGZpbGw9IiNlNmJmYTAiLz48ZWxsaXBzZSBjeD0iMTM0IiBjeT0iMTAwIiByeD0iNiIgcnk9IjkiIGZpbGw9IiNlNmJmYTAiLz48ZWxsaXBzZSBjeD0iMTAwIiBjeT0iOTYiIHJ4PSIzNCIgcnk9IjQwIiBmaWxsPSJ1cmwoI2YpIi8+PHBhdGggZD0iTTYyIDg0IEM2MCA1NCA4MiA0NCAxMDAgNDQgQzEyMCA0NCAxNDAgNTQgMTM4IDg0IEMxMjYgNzAgNzYgNzAgNjIgODQgWiIgZmlsbD0iI2I1OGE0ZSIvPjxlbGxpcHNlIGN4PSI4NyIgY3k9Ijk4IiByeD0iMyIgcnk9IjMuNCIgZmlsbD0iIzJhMWQxOCIvPjxlbGxpcHNlIGN4PSIxMTMiIGN5PSI5OCIgcng9IjMiIHJ5PSIzLjQiIGZpbGw9IiMyYTFkMTgiLz48cGF0aCBkPSJNODkgMTE3IEM5NSAxMjIgMTA1IDEyMiAxMTEgMTE3IiBzdHJva2U9IiM1YTJlMjIiIHN0cm9rZS13aWR0aD0iMi42IiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48L3N2Zz4=');background-size:cover;background-position:center}
+.ph-4,.photo.ph-4{background-image:url('https://loremflickr.com/480/480/portrait,woman,professional?lock=52'),url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48ZGVmcz48cmFkaWFsR3JhZGllbnQgaWQ9ImwiIGN4PSIzNSUiIGN5PSIyNSUiIHI9IjgwJSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmIiBzdG9wLW9wYWNpdHk9Ii41NSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2ZmZiIgc3RvcC1vcGFjaXR5PSIwIi8+PC9yYWRpYWxHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9ImYiIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNmZmYiIHN0b3Atb3BhY2l0eT0iLjE4Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMDAwIiBzdG9wLW9wYWNpdHk9Ii4xMiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjZWZkOWNmIi8+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9InVybCgjbCkiLz48cGF0aCBkPSJNNTQgMTAwIEM1MiA1NiA3NiA0MCAxMDAgNDAgQzEyNCA0MCAxNDggNTYgMTQ2IDEwMCBMMTQ4IDEyOCBMNTIgMTI4IFoiIGZpbGw9IiM2YjNhMjQiLz48cGF0aCBkPSJNMjggMjAwIEMzMCAxNTggNjAgMTQwIDEwMCAxNDAgQzE0MCAxNDAgMTcwIDE1OCAxNzIgMjAwIFoiIGZpbGw9IiMxZjJhNDQiLz48cGF0aCBkPSJNODQgMTIyIEwxMTYgMTIyIEwxMTQgMTQ4IEMxMDYgMTU2IDk0IDE1NiA4NiAxNDggWiIgZmlsbD0iI2YwY2RiNCIvPjxwYXRoIGQ9Ik04NiAxNDAgQzk0IDE1MCAxMDYgMTUwIDExNCAxNDAgTDExMiAxNDggQzEwNCAxNTYgOTYgMTU2IDg4IDE0OCBaIiBmaWxsPSIjMDAwIiBvcGFjaXR5PSIuMTIiLz48ZWxsaXBzZSBjeD0iMTAwIiBjeT0iOTYiIHJ4PSIzNCIgcnk9IjQwIiBmaWxsPSIjZjBjZGI0Ii8+PGVsbGlwc2UgY3g9IjY2IiBjeT0iMTAwIiByeD0iNiIgcnk9IjkiIGZpbGw9IiNmMGNkYjQiLz48ZWxsaXBzZSBjeD0iMTM0IiBjeT0iMTAwIiByeD0iNiIgcnk9IjkiIGZpbGw9IiNmMGNkYjQiLz48ZWxsaXBzZSBjeD0iMTAwIiBjeT0iOTYiIHJ4PSIzNCIgcnk9IjQwIiBmaWxsPSJ1cmwoI2YpIi8+PGVsbGlwc2UgY3g9Ijg3IiBjeT0iOTgiIHJ4PSIzIiByeT0iMy40IiBmaWxsPSIjMmExZDE4Ii8+PGVsbGlwc2UgY3g9IjExMyIgY3k9Ijk4IiByeD0iMyIgcnk9IjMuNCIgZmlsbD0iIzJhMWQxOCIvPjxwYXRoIGQ9Ik04OSAxMTcgQzk1IDEyMiAxMDUgMTIyIDExMSAxMTciIHN0cm9rZT0iIzVhMmUyMiIgc3Ryb2tlLXdpZHRoPSIyLjYiIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjwvc3ZnPg==');background-size:cover;background-position:center}
+.ph-5,.photo.ph-5{background-image:url('https://loremflickr.com/480/480/portrait,young,man?lock=63'),url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48ZGVmcz48cmFkaWFsR3JhZGllbnQgaWQ9ImwiIGN4PSIzNSUiIGN5PSIyNSUiIHI9IjgwJSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmIiBzdG9wLW9wYWNpdHk9Ii41NSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2ZmZiIgc3RvcC1vcGFjaXR5PSIwIi8+PC9yYWRpYWxHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9ImYiIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNmZmYiIHN0b3Atb3BhY2l0eT0iLjE4Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMDAwIiBzdG9wLW9wYWNpdHk9Ii4xMiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjZGJlNGVmIi8+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9InVybCgjbCkiLz48cGF0aCBkPSJNMjggMjAwIEMzMCAxNTggNjAgMTQwIDEwMCAxNDAgQzE0MCAxNDAgMTcwIDE1OCAxNzIgMjAwIFoiIGZpbGw9IiNkOTY2M2QiLz48cGF0aCBkPSJNODQgMTIyIEwxMTYgMTIyIEwxMTQgMTQ4IEMxMDYgMTU2IDk0IDE1NiA4NiAxNDggWiIgZmlsbD0iI2Q5YTk4MiIvPjxwYXRoIGQ9Ik04NiAxNDAgQzk0IDE1MCAxMDYgMTUwIDExNCAxNDAgTDExMiAxNDggQzEwNCAxNTYgOTYgMTU2IDg4IDE0OCBaIiBmaWxsPSIjMDAwIiBvcGFjaXR5PSIuMTIiLz48ZWxsaXBzZSBjeD0iMTAwIiBjeT0iOTYiIHJ4PSIzNCIgcnk9IjQwIiBmaWxsPSIjZDlhOTgyIi8+PGVsbGlwc2UgY3g9IjY2IiBjeT0iMTAwIiByeD0iNiIgcnk9IjkiIGZpbGw9IiNkOWE5ODIiLz48ZWxsaXBzZSBjeD0iMTM0IiBjeT0iMTAwIiByeD0iNiIgcnk9IjkiIGZpbGw9IiNkOWE5ODIiLz48ZWxsaXBzZSBjeD0iMTAwIiBjeT0iOTYiIHJ4PSIzNCIgcnk9IjQwIiBmaWxsPSJ1cmwoI2YpIi8+PHBhdGggZD0iTTYwIDg2IEM1OCA1MiA4NCA0MCAxMDYgNDIgQzEzMCA0NCAxNDYgNTggMTQyIDg2IEMxMzIgNzAgMTEwIDYyIDg0IDcwIFoiIGZpbGw9IiMxNTExMGYiLz48ZWxsaXBzZSBjeD0iODciIGN5PSI5OCIgcng9IjMiIHJ5PSIzLjQiIGZpbGw9IiMyYTFkMTgiLz48ZWxsaXBzZSBjeD0iMTEzIiBjeT0iOTgiIHJ4PSIzIiByeT0iMy40IiBmaWxsPSIjMmExZDE4Ii8+PHBhdGggZD0iTTg5IDExNyBDOTUgMTIyIDEwNSAxMjIgMTExIDExNyIgc3Ryb2tlPSIjNWEyZTIyIiBzdHJva2Utd2lkdGg9IjIuNiIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PC9zdmc+');background-size:cover;background-position:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="brand" href="#"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 20V4M19 20V4M5 12h14"/></svg>Hallway</a>
+    <nav><a href="#">For professionals</a><a href="#">Log in</a><a class="btn" href="#">Sign up</a></nav>
+  </header>
+
+  <section class="hero">
+    <div class="sentence">
+      <span class="quiet">I&rsquo;m curious about</span>
+      <span class="anchor"><button class="slot open" type="button" aria-expanded="true">Product design<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+      </span>
+      <span class="quiet">and want to talk with someone</span>
+      <button class="slot" type="button">a few years in<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><span class="quiet">.</span>
+    </div>
+    <div class="menu" role="dialog" aria-label="Pick a field">
+          <div class="mt">Pick the field you want to explore</div>
+          <ul>
+<li><button type="button" class="opt on" aria-pressed="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l4-1 11-11-3-3L5 16z"/><path d="M14 6l3 3"/></svg><span>Product design</span></button></li>
+<li><button type="button" class="opt" aria-pressed="false"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5"/><path d="M16 7l5 5-5 5"/></svg><span>Software engineering</span></button></li>
+<li><button type="button" class="opt" aria-pressed="false"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10v4h4l8 4V6L7 10z"/><path d="M18 9a4 4 0 010 6"/></svg><span>Marketing</span></button></li>
+<li><button type="button" class="opt" aria-pressed="false"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10"/><path d="M10 20V4"/><path d="M16 20v-7"/><path d="M21 20H3"/></svg><span>Finance</span></button></li>
+<li><button type="button" class="opt" aria-pressed="false"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.5-7-10a4 4 0 017-2.6A4 4 0 0119 10c0 5.5-7 10-7 10z"/></svg><span>Healthcare</span></button></li>
+<li><button type="button" class="opt" aria-pressed="false"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v16"/><path d="M5 8h14"/><path d="M5 8l-3 6h6z"/><path d="M19 8l-3 6h6z"/><path d="M8 20h8"/></svg><span>Law</span></button></li>
+<li><button type="button" class="opt" aria-pressed="false"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5a2 2 0 012-2h13v16H6a2 2 0 00-2 2z"/><path d="M4 19V5"/></svg><span>Teaching</span></button></li>
+<li><button type="button" class="opt" aria-pressed="false"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="17" r="2"/><circle cx="11" cy="10" r="2"/><circle cx="17" cy="13" r="2"/><circle cx="19" cy="5" r="2"/></svg><span>Data science</span></button></li>
+<li><button type="button" class="opt" aria-pressed="false"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21c-4-3-8-6-8-10a4 4 0 018-1 4 4 0 018 1c0 4-4 7-8 10z"/><path d="M9 12h6"/></svg><span>Nonprofits</span></button></li>
+<li><button type="button" class="opt" aria-pressed="false"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21V7l8-4 8 4v14"/><path d="M9 21v-5h6v5"/><path d="M9 10h.01M15 10h.01"/></svg><span>Architecture</span></button></li>
+<li><button type="button" class="opt" aria-pressed="false"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h14"/><path d="M5 9h14"/><path d="M5 14h9"/><path d="M5 19h6"/></svg><span>Journalism</span></button></li>
+<li><button type="button" class="opt" aria-pressed="false"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg><span>Consulting</span></button></li>
+          </ul>
+        </div>
+    <div class="go">
+      <a class="btn big" href="#people">Show me people</a>
+      <small>Takes a minute. No account needed to look.</small>
+    </div>
+  </section>
+
+  <section class="results" id="people">
+    <h2>Three people who&rsquo;d be glad to talk</h2>
+    <p class="sub">Picked from 38 professionals in Product design.</p>
+    <div class="trio">
+<article class="f f0">
+  <div class="frame"><div class="photo ph-0" role="img" aria-label="Photo of Maya Okafor"></div></div>
+  <h3>Maya Okafor</h3>
+  <p class="role">Senior product designer at Fernway, a travel app. 7 years in.</p>
+  <p class="helps">Can help with: portfolio reviews and your first offer.</p>
+  <div class="row"><span class="price free">Free intro</span><a class="link" href="#">Book a chat</a></div>
+</article>
+<article class="f f1">
+  <div class="frame"><div class="photo ph-3" role="img" aria-label="Photo of Tomás Lindqvist"></div></div>
+  <h3>Tomás Lindqvist</h3>
+  <p class="role">Freelance brand and product designer at Self-employed. 9 years in.</p>
+  <p class="helps">Can help with: pricing your first freelance project.</p>
+  <div class="row"><span class="price free">Free</span><a class="link" href="#">Book a chat</a></div>
+</article>
+<article class="f f2">
+  <div class="frame"><div class="photo ph-1" role="img" aria-label="Photo of Daniel Reyes"></div></div>
+  <h3>Daniel Reyes</h3>
+  <p class="role">Design lead at Brightwell Health. 11 years in.</p>
+  <p class="helps">Can help with: moving from agency to in-house.</p>
+  <div class="row"><span class="price">$30 / 30 min</span><a class="link" href="#">Book a chat</a></div>
+</article>
+    </div>
+    <a class="more" href="#"><span class="av ph-2" role="img" aria-label="Priya Nair"></span><span class="av ph-4" role="img" aria-label="Grace Whitfield"></span><span class="av ph-5" role="img" aria-label="Kenji Abe"></span><span class="t">See 35 more in Product design</span></a>
+  </section>
+
+  <section class="faq">
+    <h2>Good to know before your first chat</h2>
+    <div>
+      <details open><summary>What happens in a chat?</summary><p>You get 20 or 30 minutes on a video call. Bring a question, a portfolio or a job post. Most people leave with one clear next step.</p></details>
+      <details><summary>Why do some people charge?</summary></details>
+      <details><summary>Is the first chat really free?</summary></details>
+      <details><summary>I&rsquo;m a professional. Can I help?</summary></details>
+    </div>
+  </section>
+
+  <footer><span>Hallway</span><span>Professionals set their own price.</span></footer>
+</div>
+</body>
+</html>

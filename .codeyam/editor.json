@@ -1,0 +1,161 @@
+{
+  "$comment": "Per-developer settings (port, provider, proxy ports, startCommand, etc.) belong in editor.local.json. That file is gitignored and is deep-merged on top of this one at load time. Changing `provider` after scaffold does NOT install that agent's surface — re-run `codeyam-editor editor install-hooks` (or `codeyam-editor init --provider <name>`) to install it. See CLAUDE.md or run `codeyam-editor editor config-show` to inspect the effective config.",
+  "apps": [],
+  "audit": {
+    "allowedDocumentationOnlySlugs": [
+      "post-merge-drift-sweep"
+    ],
+    "branchBaseRef": "main",
+    "coverageBootstrap": {
+      "enabled": true
+    },
+    "itemShape": {
+      "changeWithoutVerify": "note",
+      "compound": "warning",
+      "vague": "warning"
+    },
+    "scenarioFreshnessDays": 14,
+    "sharedBaselineMinScenarios": 10,
+    "sizeBudget": {
+      "maxEntityLines": 150,
+      "maxFileLines": 500,
+      "severity": "warning"
+    },
+    "stepBudget": {
+      "maxChecklistItems": 6,
+      "maxLines": 80,
+      "severity": "warning"
+    },
+    "suppressions": {
+      "ratchet": true,
+      "severity": "warning"
+    },
+    "testNamingConventions": {}
+  },
+  "catalogAutoAdd": {
+    "allow": [],
+    "deny": []
+  },
+  "cleanup": {
+    "completedPlanMinAgeDays": 90,
+    "completedPlanRetention": 500,
+    "logCompress": true,
+    "logDeleteDays": 30,
+    "logRotateDays": 7,
+    "screenshotPruneOrphans": true,
+    "tmpDeleteHours": 24
+  },
+  "coverageThresholds": {
+    "global": {
+      "minLinePercent": 90.0
+    }
+  },
+  "database": null,
+  "deviceScaleFactor": 2.0,
+  "env": {},
+  "files": {
+    "eventLogMaxBytes": null,
+    "journalShardEntries": null,
+    "logKeepRotated": null,
+    "textLogMaxBytes": null
+  },
+  "formatters": [],
+  "git": {
+    "commitQueue": {
+      "enabled": true,
+      "headAutoReclaimEnabled": true,
+      "heartbeatIntervalSec": 15,
+      "machineAliveHookTimeoutMs": 5000,
+      "maxHookPrunePerSweep": 10,
+      "maxProgressStallSec": 900,
+      "pollIntervalMs": 2000,
+      "rehearseAtPosition": 2,
+      "serverHeartbeatIntervalSec": 60,
+      "stallEscalationSec": 1800,
+      "surfaceWaitAfterSec": 1800,
+      "waitTimeoutSec": 300,
+      "yieldOnQuestionSec": 600
+    },
+    "planClaims": {
+      "enabled": true,
+      "fetchIntervalSec": 3,
+      "livenessIntervalSec": 120
+    }
+  },
+  "hooks": {},
+  "port": 3000,
+  "projectDescription": "We’re working on a way to connect post-grads with established careers to people  who are recent graduates or about to graduate. \n\nCould be web-based but we’re not totally sure. Let’s start on a web app. \n\nThere may be a component of incentivizing folks who help.\n\nFor the starting page, I want users to be able to click an area of interest, then click on a professional who’s of interest. \n\nWe want to enable folks to connect with folks in similar areas and get career advice. \n\nSome current examples are LinkedIn. \n\nWe want folks to be able to monetize (e.g. get paid for helping out). \n\nI want this app to feel social and fun, but not like Pinterest where it’s super disorganized. It should feel clean and should have fewer components than something like LinkedIn where the user gets lost in the experience. ",
+  "proxy": {
+    "controlPort": 14303,
+    "dbPort": 14205,
+    "httpPort": 14204,
+    "httpsPassthrough": [
+      "crates.io",
+      "static.crates.io",
+      "index.crates.io",
+      "registry.npmjs.org",
+      "pypi.org",
+      "files.pythonhosted.org",
+      "proxy.golang.org",
+      "sum.golang.org",
+      "storage.googleapis.com",
+      "cdn.playwright.dev",
+      "rubygems.org",
+      "github.com",
+      "codeload.github.com",
+      "objects.githubusercontent.com"
+    ],
+    "httpsPreview": false
+  },
+  "runnerTimeout": {
+    "changedFanoutMaxExtraSeconds": 1800,
+    "changedFanoutPerUnitSeconds": 180,
+    "changedFanoutThreshold": 2,
+    "floorSeconds": 900,
+    "headroomSeconds": 90,
+    "mode": "auto"
+  },
+  "scenarios": {
+    "dir": ".codeyam/scenarios"
+  },
+  "screenSizes": {},
+  "server": {
+    "access": {
+      "mode": "loopback"
+    },
+    "autoRestartOnStaleBinary": true,
+    "devServerMaxRssMb": null,
+    "environment": "local",
+    "maxRssMb": 6144
+  },
+  "setupBrowserEnabled": false,
+  "silenceHookStderr": false,
+  "startCommand": "",
+  "staticChecks": [],
+  "testCacheIgnorePatterns": [],
+  "testParallelism": {
+    "loadGuard": true
+  },
+  "testPartitions": [],
+  "testRunners": [],
+  "toolchainPaths": [],
+  "workflow": {
+    "audience": null,
+    "checkIns": {
+      "hardeningCompleted": {
+        "autoAction": "commit",
+        "pause": true
+      },
+      "planAccepted": {
+        "pause": true
+      },
+      "prototypeCompleted": {
+        "pause": true
+      },
+      "push": {
+        "pause": true
+      }
+    },
+    "contextResetBefore": null
+  }
+}

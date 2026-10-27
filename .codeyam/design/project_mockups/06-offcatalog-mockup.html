@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="codeyam-viewport" content="desktop">
+<title>Sky blue, guided first steps</title>
+<style>
+:root {
+  --field: #c7dbff;
+  --surface: #ffffff;
+  --ink: #13233a;
+  --muted: #4a5d78;
+  --line: #a9c1ea;
+  --rule: #dbe5f5;
+  --butter: #ffe066;
+  --on-accent: #13233a;
+  --shadow: 0 24px 48px -24px rgba(19, 35, 58, 0.35);
+  --display: 'Avenir Next Condensed', 'Roboto Condensed', 'Arial Narrow', 'Helvetica Neue', sans-serif;
+  --body: 'Avenir Next', 'Segoe UI', system-ui, sans-serif;
+  --r: 14px;
+}
+:root[data-theme="dark"] {
+  --field: #142238;
+  --surface: #1b2c45;
+  --ink: #e8effa;
+  --muted: #a6b6cc;
+  --line: #2b4060;
+  --rule: #243752;
+  --butter: #ffe066;
+  --on-accent: #13233a;
+  --shadow: 0 24px 48px -24px rgba(0, 0, 0, 0.7);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; margin: 0; }
+body { background: var(--surface); color: var(--ink); font: 16px/1.5 var(--body); -webkit-font-smoothing: antialiased; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+
+.field { background: var(--field); padding-bottom: 72px; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 40px; }
+header { height: 72px; display: flex; align-items: center; justify-content: space-between; }
+.brand { font-family: var(--display); font-stretch: condensed; font-weight: 800; font-size: 28px; letter-spacing: -0.01em; }
+header a.out { font-size: 15px; font-weight: 600; }
+
+.progress { display: flex; justify-content: center; gap: 10px; margin: 24px 0 36px; padding: 0; list-style: none; }
+.progress li { display: flex; flex-direction: column; gap: 8px; width: 150px; font-size: 13px; font-weight: 600; color: var(--muted); }
+.progress li::before { content: ""; height: 6px; border-radius: 3px; background: var(--line); }
+.progress li.now { color: var(--ink); }
+.progress li.now::before { background: var(--ink); }
+
+h1 { font-family: var(--display); font-stretch: condensed; font-weight: 800; text-align: center; font-size: 84px; line-height: .95; letter-spacing: -0.02em; text-wrap: balance; max-width: 14ch; margin: 0 auto; }
+.lede { text-align: center; color: var(--muted); font-size: 18px; margin: 18px auto 44px; max-width: 46ch; }
+
+.grid { display: grid; grid-template-columns: repeat(4, 1fr); background: var(--line); gap: 1px; border-radius: var(--r); overflow: hidden; box-shadow: var(--shadow); border: 1px solid var(--line); }
+.tile { position: relative; background: var(--surface); border: 0; padding: 22px 20px 20px; text-align: left; display: grid; gap: 4px; min-height: 132px; align-content: end; transition: background .15s; }
+.tile svg:first-child { color: var(--muted); margin-bottom: auto; }
+.tile:hover { background: color-mix(in srgb, var(--field) 35%, var(--surface)); }
+.tile .l { font-family: var(--display); font-stretch: condensed; font-weight: 700; font-size: 24px; line-height: 1.05; letter-spacing: -0.01em; }
+.tile .n { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.tile.on { background: var(--ink); color: var(--surface); }
+.tile.on svg:first-child, .tile.on .n { color: var(--butter); }
+.ck { position: absolute; top: 18px; right: 18px; color: var(--on-accent); background: var(--butter); border-radius: 50%; padding: 3px; width: 28px; height: 28px; }
+
+.bar { margin: 22px auto 0; display: flex; align-items: center; gap: 18px; background: var(--surface); border-radius: 999px; padding: 10px 10px 10px 16px; box-shadow: var(--shadow); width: fit-content; }
+.av { width: 38px; height: 38px; border-radius: 50%; border: 3px solid var(--surface); margin-left: -14px; display: inline-block; }
+.av:first-child { margin-left: 0; }
+.bar p { font-size: 15px; }
+.bar p b { font-weight: 700; }
+.next { background: var(--butter); color: var(--on-accent); font-weight: 700; padding: 12px 22px; border-radius: 999px; white-space: nowrap; }
+.next:active { transform: scale(.98); }
+
+.peek { padding: 72px 0 40px; display: grid; grid-template-columns: 300px 1fr; gap: 56px; }
+h2 { font-family: var(--display); font-stretch: condensed; font-weight: 800; font-size: 44px; line-height: 1; letter-spacing: -0.01em; text-wrap: balance; }
+.peek .side p { color: var(--muted); margin-top: 14px; }
+.list { list-style: none; padding: 0; }
+.list li { display: grid; grid-template-columns: 56px 1.1fr 1.3fr auto; gap: 20px; align-items: center; padding: 18px 0; border-top: 1px solid var(--rule); }
+.list li:last-child { border-bottom: 1px solid var(--rule); }
+.list .photo { width: 56px; height: 56px; border-radius: 50%; }
+.who strong { display: block; font-size: 17px; }
+.who span { font-size: 14px; color: var(--muted); }
+.list p { font-size: 15px; color: var(--muted); }
+.price { font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; font-size: 15px; }
+.price.free { background: var(--butter); color: var(--on-accent); padding: 3px 10px; border-radius: 999px; }
+
+footer { padding: 24px 0 40px; color: var(--muted); font-size: 14px; display: flex; justify-content: space-between; }
+@media (max-width: 900px) {
+  .wrap { padding: 0 16px; }
+  h1 { font-size: 52px; }
+  .grid { grid-template-columns: repeat(2, 1fr); }
+  .peek { grid-template-columns: 1fr; }
+  .list li { grid-template-columns: 48px 1fr auto; }
+  .list p { display: none; }
+  .bar { border-radius: var(--r); flex-wrap: wrap; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+.ph-0,.photo.ph-0{background-image:url('https://loremflickr.com/200/200/portrait,woman,smiling?lock=31'),url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48ZGVmcz48cmFkaWFsR3JhZGllbnQgaWQ9ImwiIGN4PSIzNSUiIGN5PSIyNSUiIHI9IjgwJSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmIiBzdG9wLW9wYWNpdHk9Ii41NSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2ZmZiIgc3RvcC1vcGFjaXR5PSIwIi8+PC9yYWRpYWxHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9ImYiIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNmZmYiIHN0b3Atb3BhY2l0eT0iLjE4Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMDAwIiBzdG9wLW9wYWNpdHk9Ii4xMiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjZDhlNmUxIi8+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9InVybCgjbCkiLz48Y2lyY2xlIGN4PSIxMDAiIGN5PSI3OCIgcj0iNTAiIGZpbGw9IiMxZjE0MTAiLz48Y2lyY2xlIGN4PSI2MiIgY3k9Ijk2IiByPSIyMiIgZmlsbD0iIzFmMTQxMCIvPjxjaXJjbGUgY3g9IjEzOCIgY3k9Ijk2IiByPSIyMiIgZmlsbD0iIzFmMTQxMCIvPjxjaXJjbGUgY3g9Ijc2IiBjeT0iNTgiIHI9IjIyIiBmaWxsPSIjMWYxNDEwIi8+PGNpcmNsZSBjeD0iMTI0IiBjeT0iNTgiIHI9IjIyIiBmaWxsPSIjMWYxNDEwIi8+PHBhdGggZD0iTTI4IDIwMCBDMzAgMTU4IDYwIDE0MCAxMDAgMTQwIEMxNDAgMTQwIDE3MCAxNTggMTcyIDIwMCBaIiBmaWxsPSIjZTliOTQ5Ii8+PHBhdGggZD0iTTg0IDEyMiBMMTE2IDEyMiBMMTE0IDE0OCBDMTA2IDE1NiA5NCAxNTYgODYgMTQ4IFoiIGZpbGw9IiM4ZDVhM2IiLz48cGF0aCBkPSJNODYgMTQwIEM5NCAxNTAgMTA2IDE1MCAxMTQgMTQwIEwxMTIgMTQ4IEMxMDQgMTU2IDk2IDE1NiA4OCAxNDggWiIgZmlsbD0iIzAwMCIgb3BhY2l0eT0iLjEyIi8+PGVsbGlwc2UgY3g9IjEwMCIgY3k9Ijk2IiByeD0iMzQiIHJ5PSI0MCIgZmlsbD0iIzhkNWEzYiIvPjxlbGxpcHNlIGN4PSI2NiIgY3k9IjEwMCIgcng9IjYiIHJ5PSI5IiBmaWxsPSIjOGQ1YTNiIi8+PGVsbGlwc2UgY3g9IjEzNCIgY3k9IjEwMCIgcng9IjYiIHJ5PSI5IiBmaWxsPSIjOGQ1YTNiIi8+PGVsbGlwc2UgY3g9IjEwMCIgY3k9Ijk2IiByeD0iMzQiIHJ5PSI0MCIgZmlsbD0idXJsKCNmKSIvPjxlbGxpcHNlIGN4PSI4NyIgY3k9Ijk4IiByeD0iMyIgcnk9IjMuNCIgZmlsbD0iIzJhMWQxOCIvPjxlbGxpcHNlIGN4PSIxMTMiIGN5PSI5OCIgcng9IjMiIHJ5PSIzLjQiIGZpbGw9IiMyYTFkMTgiLz48cGF0aCBkPSJNODkgMTE3IEM5NSAxMjIgMTA1IDEyMiAxMTEgMTE3IiBzdHJva2U9IiM1YTJlMjIiIHN0cm9rZS13aWR0aD0iMi42IiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48L3N2Zz4=');background-size:cover;background-position:center}
+.ph-1,.photo.ph-1{background-image:url('https://loremflickr.com/200/200/portrait,man,beard?lock=17'),url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48ZGVmcz48cmFkaWFsR3JhZGllbnQgaWQ9ImwiIGN4PSIzNSUiIGN5PSIyNSUiIHI9IjgwJSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmIiBzdG9wLW9wYWNpdHk9Ii41NSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2ZmZiIgc3RvcC1vcGFjaXR5PSIwIi8+PC9yYWRpYWxHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9ImYiIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNmZmYiIHN0b3Atb3BhY2l0eT0iLjE4Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMDAwIiBzdG9wLW9wYWNpdHk9Ii4xMiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjZTZkY2NkIi8+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9InVybCgjbCkiLz48cGF0aCBkPSJNMjggMjAwIEMzMCAxNTggNjAgMTQwIDEwMCAxNDAgQzE0MCAxNDAgMTcwIDE1OCAxNzIgMjAwIFoiIGZpbGw9IiMzZDZiOGYiLz48cGF0aCBkPSJNODQgMTIyIEwxMTYgMTIyIEwxMTQgMTQ4IEMxMDYgMTU2IDk0IDE1NiA4NiAxNDggWiIgZmlsbD0iI2M1OGM2MiIvPjxwYXRoIGQ9Ik04NiAxNDAgQzk0IDE1MCAxMDYgMTUwIDExNCAxNDAgTDExMiAxNDggQzEwNCAxNTYgOTYgMTU2IDg4IDE0OCBaIiBmaWxsPSIjMDAwIiBvcGFjaXR5PSIuMTIiLz48ZWxsaXBzZSBjeD0iMTAwIiBjeT0iOTYiIHJ4PSIzNCIgcnk9IjQwIiBmaWxsPSIjYzU4YzYyIi8+PGVsbGlwc2UgY3g9IjY2IiBjeT0iMTAwIiByeD0iNiIgcnk9IjkiIGZpbGw9IiNjNThjNjIiLz48ZWxsaXBzZSBjeD0iMTM0IiBjeT0iMTAwIiByeD0iNiIgcnk9IjkiIGZpbGw9IiNjNThjNjIiLz48ZWxsaXBzZSBjeD0iMTAwIiBjeT0iOTYiIHJ4PSIzNCIgcnk9IjQwIiBmaWxsPSJ1cmwoI2YpIi8+PHBhdGggZD0iTTYyIDg0IEM2MCA1NCA4MiA0NCAxMDAgNDQgQzEyMCA0NCAxNDAgNTQgMTM4IDg0IEMxMjYgNzAgNzYgNzAgNjIgODQgWiIgZmlsbD0iIzJiMWQxNiIvPjxlbGxpcHNlIGN4PSI4NyIgY3k9Ijk4IiByeD0iMyIgcnk9IjMuNCIgZmlsbD0iIzJhMWQxOCIvPjxlbGxpcHNlIGN4PSIxMTMiIGN5PSI5OCIgcng9IjMiIHJ5PSIzLjQiIGZpbGw9IiMyYTFkMTgiLz48cGF0aCBkPSJNODkgMTE3IEM5NSAxMjIgMTA1IDEyMiAxMTEgMTE3IiBzdHJva2U9IiM1YTJlMjIiIHN0cm9rZS13aWR0aD0iMi42IiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48L3N2Zz4=');background-size:cover;background-position:center}
+.ph-2,.photo.ph-2{background-image:url('https://loremflickr.com/200/200/portrait,woman,office?lock=44'),url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48ZGVmcz48cmFkaWFsR3JhZGllbnQgaWQ9ImwiIGN4PSIzNSUiIGN5PSIyNSUiIHI9IjgwJSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmIiBzdG9wLW9wYWNpdHk9Ii41NSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2ZmZiIgc3RvcC1vcGFjaXR5PSIwIi8+PC9yYWRpYWxHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9ImYiIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNmZmYiIHN0b3Atb3BhY2l0eT0iLjE4Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMDAwIiBzdG9wLW9wYWNpdHk9Ii4xMiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjZTRlMWVlIi8+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9InVybCgjbCkiLz48cGF0aCBkPSJNNTAgOTYgQzUwIDUwIDc1IDM2IDEwMCAzNiBDMTI1IDM2IDE1MCA1MCAxNTAgOTYgTDE1NiAxNzAgTDQ0IDE3MCBaIiBmaWxsPSIjMTIwYzBhIi8+PHBhdGggZD0iTTI4IDIwMCBDMzAgMTU4IDYwIDE0MCAxMDAgMTQwIEMxNDAgMTQwIDE3MCAxNTggMTcyIDIwMCBaIiBmaWxsPSIjN2EzYjUyIi8+PHBhdGggZD0iTTg0IDEyMiBMMTE2IDEyMiBMMTE0IDE0OCBDMTA2IDE1NiA5NCAxNTYgODYgMTQ4IFoiIGZpbGw9IiNhODZmNGMiLz48cGF0aCBkPSJNODYgMTQwIEM5NCAxNTAgMTA2IDE1MCAxMTQgMTQwIEwxMTIgMTQ4IEMxMDQgMTU2IDk2IDE1NiA4OCAxNDggWiIgZmlsbD0iIzAwMCIgb3BhY2l0eT0iLjEyIi8+PGVsbGlwc2UgY3g9IjEwMCIgY3k9Ijk2IiByeD0iMzQiIHJ5PSI0MCIgZmlsbD0iI2E4NmY0YyIvPjxlbGxpcHNlIGN4PSI2NiIgY3k9IjEwMCIgcng9IjYiIHJ5PSI5IiBmaWxsPSIjYTg2ZjRjIi8+PGVsbGlwc2UgY3g9IjEzNCIgY3k9IjEwMCIgcng9IjYiIHJ5PSI5IiBmaWxsPSIjYTg2ZjRjIi8+PGVsbGlwc2UgY3g9IjEwMCIgY3k9Ijk2IiByeD0iMzQiIHJ5PSI0MCIgZmlsbD0idXJsKCNmKSIvPjxlbGxpcHNlIGN4PSI4NyIgY3k9Ijk4IiByeD0iMyIgcnk9IjMuNCIgZmlsbD0iIzJhMWQxOCIvPjxlbGxpcHNlIGN4PSIxMTMiIGN5PSI5OCIgcng9IjMiIHJ5PSIzLjQiIGZpbGw9IiMyYTFkMTgiLz48cGF0aCBkPSJNODkgMTE3IEM5NSAxMjIgMTA1IDEyMiAxMTEgMTE3IiBzdHJva2U9IiM1YTJlMjIiIHN0cm9rZS13aWR0aD0iMi42IiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48L3N2Zz4=');background-size:cover;background-position:center}
+.ph-3,.photo.ph-3{background-image:url('https://loremflickr.com/200/200/portrait,man,glasses?lock=8'),url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48ZGVmcz48cmFkaWFsR3JhZGllbnQgaWQ9ImwiIGN4PSIzNSUiIGN5PSIyNSUiIHI9IjgwJSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmIiBzdG9wLW9wYWNpdHk9Ii41NSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2ZmZiIgc3RvcC1vcGFjaXR5PSIwIi8+PC9yYWRpYWxHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9ImYiIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNmZmYiIHN0b3Atb3BhY2l0eT0iLjE4Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMDAwIiBzdG9wLW9wYWNpdHk9Ii4xMiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjZGZlOWQ2Ii8+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9InVybCgjbCkiLz48cGF0aCBkPSJNMjggMjAwIEMzMCAxNTggNjAgMTQwIDEwMCAxNDAgQzE0MCAxNDAgMTcwIDE1OCAxNzIgMjAwIFoiIGZpbGw9IiMyZjRhM2EiLz48cGF0aCBkPSJNODQgMTIyIEwxMTYgMTIyIEwxMTQgMTQ4IEMxMDYgMTU2IDk0IDE1NiA4NiAxNDggWiIgZmlsbD0iI2U2YmZhMCIvPjxwYXRoIGQ9Ik04NiAxNDAgQzk0IDE1MCAxMDYgMTUwIDExNCAxNDAgTDExMiAxNDggQzEwNCAxNTYgOTYgMTU2IDg4IDE0OCBaIiBmaWxsPSIjMDAwIiBvcGFjaXR5PSIuMTIiLz48ZWxsaXBzZSBjeD0iMTAwIiBjeT0iOTYiIHJ4PSIzNCIgcnk9IjQwIiBmaWxsPSIjZTZiZmEwIi8+PGVsbGlwc2UgY3g9IjY2IiBjeT0iMTAwIiByeD0iNiIgcnk9IjkiIGZpbGw9IiNlNmJmYTAiLz48ZWxsaXBzZSBjeD0iMTM0IiBjeT0iMTAwIiByeD0iNiIgcnk9IjkiIGZpbGw9IiNlNmJmYTAiLz48ZWxsaXBzZSBjeD0iMTAwIiBjeT0iOTYiIHJ4PSIzNCIgcnk9IjQwIiBmaWxsPSJ1cmwoI2YpIi8+PHBhdGggZD0iTTYyIDg0IEM2MCA1NCA4MiA0NCAxMDAgNDQgQzEyMCA0NCAxNDAgNTQgMTM4IDg0IEMxMjYgNzAgNzYgNzAgNjIgODQgWiIgZmlsbD0iI2I1OGE0ZSIvPjxlbGxpcHNlIGN4PSI4NyIgY3k9Ijk4IiByeD0iMyIgcnk9IjMuNCIgZmlsbD0iIzJhMWQxOCIvPjxlbGxpcHNlIGN4PSIxMTMiIGN5PSI5OCIgcng9IjMiIHJ5PSIzLjQiIGZpbGw9IiMyYTFkMTgiLz48cGF0aCBkPSJNODkgMTE3IEM5NSAxMjIgMTA1IDEyMiAxMTEgMTE3IiBzdHJva2U9IiM1YTJlMjIiIHN0cm9rZS13aWR0aD0iMi42IiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48L3N2Zz4=');background-size:cover;background-position:center}
+.ph-4,.photo.ph-4{background-image:url('https://loremflickr.com/200/200/portrait,woman,professional?lock=52'),url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48ZGVmcz48cmFkaWFsR3JhZGllbnQgaWQ9ImwiIGN4PSIzNSUiIGN5PSIyNSUiIHI9IjgwJSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmIiBzdG9wLW9wYWNpdHk9Ii41NSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2ZmZiIgc3RvcC1vcGFjaXR5PSIwIi8+PC9yYWRpYWxHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9ImYiIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNmZmYiIHN0b3Atb3BhY2l0eT0iLjE4Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMDAwIiBzdG9wLW9wYWNpdHk9Ii4xMiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjZWZkOWNmIi8+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9InVybCgjbCkiLz48cGF0aCBkPSJNNTQgMTAwIEM1MiA1NiA3NiA0MCAxMDAgNDAgQzEyNCA0MCAxNDggNTYgMTQ2IDEwMCBMMTQ4IDEyOCBMNTIgMTI4IFoiIGZpbGw9IiM2YjNhMjQiLz48cGF0aCBkPSJNMjggMjAwIEMzMCAxNTggNjAgMTQwIDEwMCAxNDAgQzE0MCAxNDAgMTcwIDE1OCAxNzIgMjAwIFoiIGZpbGw9IiMxZjJhNDQiLz48cGF0aCBkPSJNODQgMTIyIEwxMTYgMTIyIEwxMTQgMTQ4IEMxMDYgMTU2IDk0IDE1NiA4NiAxNDggWiIgZmlsbD0iI2YwY2RiNCIvPjxwYXRoIGQ9Ik04NiAxNDAgQzk0IDE1MCAxMDYgMTUwIDExNCAxNDAgTDExMiAxNDggQzEwNCAxNTYgOTYgMTU2IDg4IDE0OCBaIiBmaWxsPSIjMDAwIiBvcGFjaXR5PSIuMTIiLz48ZWxsaXBzZSBjeD0iMTAwIiBjeT0iOTYiIHJ4PSIzNCIgcnk9IjQwIiBmaWxsPSIjZjBjZGI0Ii8+PGVsbGlwc2UgY3g9IjY2IiBjeT0iMTAwIiByeD0iNiIgcnk9IjkiIGZpbGw9IiNmMGNkYjQiLz48ZWxsaXBzZSBjeD0iMTM0IiBjeT0iMTAwIiByeD0iNiIgcnk9IjkiIGZpbGw9IiNmMGNkYjQiLz48ZWxsaXBzZSBjeD0iMTAwIiBjeT0iOTYiIHJ4PSIzNCIgcnk9IjQwIiBmaWxsPSJ1cmwoI2YpIi8+PGVsbGlwc2UgY3g9Ijg3IiBjeT0iOTgiIHJ4PSIzIiByeT0iMy40IiBmaWxsPSIjMmExZDE4Ii8+PGVsbGlwc2UgY3g9IjExMyIgY3k9Ijk4IiByeD0iMyIgcnk9IjMuNCIgZmlsbD0iIzJhMWQxOCIvPjxwYXRoIGQ9Ik04OSAxMTcgQzk1IDEyMiAxMDUgMTIyIDExMSAxMTciIHN0cm9rZT0iIzVhMmUyMiIgc3Ryb2tlLXdpZHRoPSIyLjYiIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjwvc3ZnPg==');background-size:cover;background-position:center}
+.ph-5,.photo.ph-5{background-image:url('https://loremflickr.com/200/200/portrait,young,man?lock=63'),url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48ZGVmcz48cmFkaWFsR3JhZGllbnQgaWQ9ImwiIGN4PSIzNSUiIGN5PSIyNSUiIHI9IjgwJSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmIiBzdG9wLW9wYWNpdHk9Ii41NSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2ZmZiIgc3RvcC1vcGFjaXR5PSIwIi8+PC9yYWRpYWxHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9ImYiIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNmZmYiIHN0b3Atb3BhY2l0eT0iLjE4Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMDAwIiBzdG9wLW9wYWNpdHk9Ii4xMiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjZGJlNGVmIi8+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9InVybCgjbCkiLz48cGF0aCBkPSJNMjggMjAwIEMzMCAxNTggNjAgMTQwIDEwMCAxNDAgQzE0MCAxNDAgMTcwIDE1OCAxNzIgMjAwIFoiIGZpbGw9IiNkOTY2M2QiLz48cGF0aCBkPSJNODQgMTIyIEwxMTYgMTIyIEwxMTQgMTQ4IEMxMDYgMTU2IDk0IDE1NiA4NiAxNDggWiIgZmlsbD0iI2Q5YTk4MiIvPjxwYXRoIGQ9Ik04NiAxNDAgQzk0IDE1MCAxMDYgMTUwIDExNCAxNDAgTDExMiAxNDggQzEwNCAxNTYgOTYgMTU2IDg4IDE0OCBaIiBmaWxsPSIjMDAwIiBvcGFjaXR5PSIuMTIiLz48ZWxsaXBzZSBjeD0iMTAwIiBjeT0iOTYiIHJ4PSIzNCIgcnk9IjQwIiBmaWxsPSIjZDlhOTgyIi8+PGVsbGlwc2UgY3g9IjY2IiBjeT0iMTAwIiByeD0iNiIgcnk9IjkiIGZpbGw9IiNkOWE5ODIiLz48ZWxsaXBzZSBjeD0iMTM0IiBjeT0iMTAwIiByeD0iNiIgcnk9IjkiIGZpbGw9IiNkOWE5ODIiLz48ZWxsaXBzZSBjeD0iMTAwIiBjeT0iOTYiIHJ4PSIzNCIgcnk9IjQwIiBmaWxsPSJ1cmwoI2YpIi8+PHBhdGggZD0iTTYwIDg2IEM1OCA1MiA4NCA0MCAxMDYgNDIgQzEzMCA0NCAxNDYgNTggMTQyIDg2IEMxMzIgNzAgMTEwIDYyIDg0IDcwIFoiIGZpbGw9IiMxNTExMGYiLz48ZWxsaXBzZSBjeD0iODciIGN5PSI5OCIgcng9IjMiIHJ5PSIzLjQiIGZpbGw9IiMyYTFkMTgiLz48ZWxsaXBzZSBjeD0iMTEzIiBjeT0iOTgiIHJ4PSIzIiByeT0iMy40IiBmaWxsPSIjMmExZDE4Ii8+PHBhdGggZD0iTTg5IDExNyBDOTUgMTIyIDEwNSAxMjIgMTExIDExNyIgc3Ryb2tlPSIjNWEyZTIyIiBzdHJva2Utd2lkdGg9IjIuNiIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PC9zdmc+');background-size:cover;background-position:center}
+</style>
+</head>
+<body>
+<section class="field">
+  <div class="wrap">
+    <header>
+      <a class="brand" href="#">Hallway</a>
+      <a class="out" href="#">I already have an account</a>
+    </header>
+    <ol class="progress" aria-label="Getting started">
+      <li class="now">Pick a field</li>
+      <li>Pick a person</li>
+      <li>Book a chat</li>
+    </ol>
+    <h1>What could you see yourself doing?</h1>
+    <p class="lede">Pick a field and we&rsquo;ll introduce you to people who work in it. Not sure yet? Pick the one you&rsquo;re most curious about.</p>
+    <div class="grid">
+<button type="button" class="tile on" aria-pressed="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l4-1 11-11-3-3L5 16z"/><path d="M14 6l3 3"/></svg><span class="l">Product design</span><span class="n">38 people</span><svg class="ck" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></button>
+<button type="button" class="tile" aria-pressed="false"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5"/><path d="M16 7l5 5-5 5"/></svg><span class="l">Software engineering</span><span class="n">54 people</span></button>
+<button type="button" class="tile" aria-pressed="false"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10v4h4l8 4V6L7 10z"/><path d="M18 9a4 4 0 010 6"/></svg><span class="l">Marketing</span><span class="n">41 people</span></button>
+<button type="button" class="tile" aria-pressed="false"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10"/><path d="M10 20V4"/><path d="M16 20v-7"/><path d="M21 20H3"/></svg><span class="l">Finance</span><span class="n">27 people</span></button>
+<button type="button" class="tile" aria-pressed="false"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.5-7-10a4 4 0 017-2.6A4 4 0 0119 10c0 5.5-7 10-7 10z"/></svg><span class="l">Healthcare</span><span class="n">33 people</span></button>
+<button type="button" class="tile" aria-pressed="false"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v16"/><path d="M5 8h14"/><path d="M5 8l-3 6h6z"/><path d="M19 8l-3 6h6z"/><path d="M8 20h8"/></svg><span class="l">Law</span><span class="n">19 people</span></button>
+<button type="button" class="tile" aria-pressed="false"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5a2 2 0 012-2h13v16H6a2 2 0 00-2 2z"/><path d="M4 19V5"/></svg><span class="l">Teaching</span><span class="n">46 people</span></button>
+<button type="button" class="tile" aria-pressed="false"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="17" r="2"/><circle cx="11" cy="10" r="2"/><circle cx="17" cy="13" r="2"/><circle cx="19" cy="5" r="2"/></svg><span class="l">Data science</span><span class="n">22 people</span></button>
+<button type="button" class="tile" aria-pressed="false"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21c-4-3-8-6-8-10a4 4 0 018-1 4 4 0 018 1c0 4-4 7-8 10z"/><path d="M9 12h6"/></svg><span class="l">Nonprofits</span><span class="n">17 people</span></button>
+<button type="button" class="tile" aria-pressed="false"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21V7l8-4 8 4v14"/><path d="M9 21v-5h6v5"/><path d="M9 10h.01M15 10h.01"/></svg><span class="l">Architecture</span><span class="n">12 people</span></button>
+<button type="button" class="tile" aria-pressed="false"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h14"/><path d="M5 9h14"/><path d="M5 14h9"/><path d="M5 19h6"/></svg><span class="l">Journalism</span><span class="n">15 people</span></button>
+<button type="button" class="tile" aria-pressed="false"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg><span class="l">Consulting</span><span class="n">29 people</span></button>
+    </div>
+    <div class="bar">
+      <span><span class="av ph-0" role="img" aria-label="Maya Okafor"></span><span class="av ph-1" role="img" aria-label="Daniel Reyes"></span><span class="av ph-2" role="img" aria-label="Priya Nair"></span><span class="av ph-3" role="img" aria-label="Tomás Lindqvist"></span><span class="av ph-4" role="img" aria-label="Grace Whitfield"></span></span>
+      <p><b>38 people in Product design.</b> 14 offer a free first chat.</p>
+      <a class="next" href="#">Pick a person</a>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <section class="peek">
+    <div class="side">
+      <h2>A few people you could talk to</h2>
+      <p>Each one sets their own price. Free intros are 20 minutes.</p>
+    </div>
+    <ul class="list">
+<li>
+  <span class="photo ph-0" role="img" aria-label="Photo of Maya Okafor"></span>
+  <div class="who"><strong>Maya Okafor</strong><span>Senior product designer, Fernway, a travel app</span></div>
+  <p>Portfolio reviews and your first offer</p>
+  <span class="price free">Free intro</span>
+</li>
+<li>
+  <span class="photo ph-1" role="img" aria-label="Photo of Daniel Reyes"></span>
+  <div class="who"><strong>Daniel Reyes</strong><span>Design lead, Brightwell Health</span></div>
+  <p>Moving from agency to in-house</p>
+  <span class="price">$30 / 30 min</span>
+</li>
+<li>
+  <span class="photo ph-2" role="img" aria-label="Photo of Priya Nair"></span>
+  <div class="who"><strong>Priya Nair</strong><span>UX researcher, Tallgrass Bank</span></div>
+  <p>Research roles nobody tells you about</p>
+  <span class="price">$20 / 30 min</span>
+</li>
+<li>
+  <span class="photo ph-3" role="img" aria-label="Photo of Tomás Lindqvist"></span>
+  <div class="who"><strong>Tomás Lindqvist</strong><span>Freelance brand and product designer, Self-employed</span></div>
+  <p>Pricing your first freelance project</p>
+  <span class="price free">Free</span>
+</li>
+    </ul>
+  </section>
+  <footer><span>Hallway</span><span>Are you a professional? <a href="#"><b>Offer advice</b></a></span></footer>
+</div>
+</body>
+</html>

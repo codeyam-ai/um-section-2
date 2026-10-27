@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="codeyam-viewport" content="desktop">
+<title>Big portrait, one person first</title>
+<style>
+:root {
+  --bg: #eef0ec;
+  --surface: #f8f9f6;
+  --ink: #1e2721;
+  --muted: #5b665e;
+  --line: #d3d8d0;
+  --accent: #2b4acb;
+  --accent-soft: #e2e7fa;
+  --on-accent: #ffffff;
+  --serif: 'Iowan Old Style', 'Charter', 'Palatino Linotype', Palatino, Georgia, serif;
+  --sans: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --r: 4px;
+}
+:root[data-theme="dark"] {
+  --bg: #141815;
+  --surface: #1b201c;
+  --ink: #e9ece6;
+  --muted: #a2aca4;
+  --line: #2e352f;
+  --accent: #8ea2ff;
+  --accent-soft: #232a45;
+  --on-accent: #141815;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; margin: 0; }
+body { background: var(--bg); color: var(--ink); font: 16px/1.55 var(--sans); -webkit-font-smoothing: antialiased; }
+a { color: inherit; text-decoration: none; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.wrap { max-width: 1280px; margin: 0 auto; padding: 0 40px; }
+
+header { height: 68px; display: flex; align-items: center; justify-content: space-between; }
+.brand { font-family: var(--serif); font-size: 24px; font-weight: 700; letter-spacing: -0.01em; }
+nav { display: flex; gap: 28px; align-items: center; font-size: 15px; color: var(--muted); }
+.btn { display: inline-block; background: var(--accent); color: var(--on-accent); padding: 13px 22px; border-radius: var(--r); font-weight: 600; white-space: nowrap; }
+.btn.sm { padding: 8px 14px; font-size: 14px; }
+.btn.text { background: none; color: var(--ink); padding: 13px 4px; border-bottom: 1px solid var(--ink); border-radius: 0; }
+
+.hero { display: grid; grid-template-columns: 7fr 5fr; gap: 56px; align-items: end; padding: 12px 0 0; }
+.ph-hero { aspect-ratio: 5 / 5.6; max-height: 680px; width: 100%; border-radius: var(--r); }
+.intro { padding-bottom: 12px; }
+.meet { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--muted); margin-bottom: 22px; }
+.meet b { color: var(--ink); font-weight: 600; }
+h1 { font-family: var(--serif); font-weight: 500; font-size: 52px; line-height: 1.08; letter-spacing: -0.015em; text-wrap: balance; }
+.lede { font-size: 18px; color: var(--muted); margin: 22px 0 30px; max-width: 38ch; }
+.ctas { display: flex; gap: 22px; align-items: center; }
+.facts { margin-top: 40px; display: grid; grid-template-columns: repeat(3, auto); justify-content: start; gap: 36px; padding-top: 20px; border-top: 1px solid var(--line); }
+.facts dt { font-size: 13px; color: var(--muted); }
+.facts dd { font-family: var(--serif); font-size: 22px; font-variant-numeric: tabular-nums; margin: 0; }
+
+.fields { margin: 88px 0 0; }
+.fields h2, .gal-head h2 { font-family: var(--serif); font-weight: 500; font-size: 32px; letter-spacing: -0.01em; }
+.fields p { color: var(--muted); margin-top: 6px; }
+.field-row { display: flex; flex-wrap: wrap; gap: 6px 28px; margin-top: 24px; font-family: var(--serif); font-size: 26px; line-height: 1.5; }
+.field-row a { color: var(--muted); transition: color .15s; }
+.field-row a:hover { color: var(--ink); }
+.field-row a.on { color: var(--accent); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; }
+
+.gal-head { display: flex; justify-content: space-between; align-items: baseline; margin: 80px 0 28px; }
+.gal-head a { font-size: 15px; border-bottom: 1px solid var(--ink); }
+.gallery { columns: 3; column-gap: 28px; }
+.g { break-inside: avoid; margin: 0 0 36px; }
+.g .photo { width: 100%; border-radius: var(--r); }
+.g0 .photo { aspect-ratio: 4 / 5; }
+.g1 .photo { aspect-ratio: 1 / 1; }
+.g2 .photo { aspect-ratio: 4 / 5.4; }
+.g3 .photo { aspect-ratio: 4 / 3.2; }
+.g4 .photo { aspect-ratio: 4 / 4.4; }
+figcaption { display: grid; grid-template-columns: 1fr auto; gap: 2px 16px; margin-top: 12px; }
+.nm { font-family: var(--serif); font-size: 21px; }
+.rl { grid-column: 1; color: var(--muted); font-size: 14px; }
+.pr { grid-column: 2; grid-row: 1 / span 2; align-self: start; font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; padding-top: 4px; }
+.pr.free { color: var(--accent); }
+
+.voices { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; margin: 48px 0 72px; padding-top: 40px; border-top: 1px solid var(--line); }
+blockquote { font-family: var(--serif); font-size: 26px; line-height: 1.35; }
+cite { display: block; font: 14px/1.4 var(--sans); color: var(--muted); font-style: normal; margin-top: 14px; }
+
+footer { padding: 24px 0 40px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; font-size: 14px; color: var(--muted); }
+@media (max-width: 900px) {
+  .wrap { padding: 0 16px; }
+  .hero, .voices { grid-template-columns: 1fr; }
+  h1 { font-size: 38px; }
+  .gallery { columns: 1; }
+  nav a:not(.btn) { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+.ph-hero,.photo.ph-hero{background-image:url('https://loremflickr.com/1000/1120/portrait,woman,smiling?lock=31'),url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48ZGVmcz48cmFkaWFsR3JhZGllbnQgaWQ9ImwiIGN4PSIzNSUiIGN5PSIyNSUiIHI9IjgwJSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmIiBzdG9wLW9wYWNpdHk9Ii41NSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2ZmZiIgc3RvcC1vcGFjaXR5PSIwIi8+PC9yYWRpYWxHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9ImYiIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNmZmYiIHN0b3Atb3BhY2l0eT0iLjE4Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMDAwIiBzdG9wLW9wYWNpdHk9Ii4xMiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjZDhlNmUxIi8+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9InVybCgjbCkiLz48Y2lyY2xlIGN4PSIxMDAiIGN5PSI3OCIgcj0iNTAiIGZpbGw9IiMxZjE0MTAiLz48Y2lyY2xlIGN4PSI2MiIgY3k9Ijk2IiByPSIyMiIgZmlsbD0iIzFmMTQxMCIvPjxjaXJjbGUgY3g9IjEzOCIgY3k9Ijk2IiByPSIyMiIgZmlsbD0iIzFmMTQxMCIvPjxjaXJjbGUgY3g9Ijc2IiBjeT0iNTgiIHI9IjIyIiBmaWxsPSIjMWYxNDEwIi8+PGNpcmNsZSBjeD0iMTI0IiBjeT0iNTgiIHI9IjIyIiBmaWxsPSIjMWYxNDEwIi8+PHBhdGggZD0iTTI4IDIwMCBDMzAgMTU4IDYwIDE0MCAxMDAgMTQwIEMxNDAgMTQwIDE3MCAxNTggMTcyIDIwMCBaIiBmaWxsPSIjZTliOTQ5Ii8+PHBhdGggZD0iTTg0IDEyMiBMMTE2IDEyMiBMMTE0IDE0OCBDMTA2IDE1NiA5NCAxNTYgODYgMTQ4IFoiIGZpbGw9IiM4ZDVhM2IiLz48cGF0aCBkPSJNODYgMTQwIEM5NCAxNTAgMTA2IDE1MCAxMTQgMTQwIEwxMTIgMTQ4IEMxMDQgMTU2IDk2IDE1NiA4OCAxNDggWiIgZmlsbD0iIzAwMCIgb3BhY2l0eT0iLjEyIi8+PGVsbGlwc2UgY3g9IjEwMCIgY3k9Ijk2IiByeD0iMzQiIHJ5PSI0MCIgZmlsbD0iIzhkNWEzYiIvPjxlbGxpcHNlIGN4PSI2NiIgY3k9IjEwMCIgcng9IjYiIHJ5PSI5IiBmaWxsPSIjOGQ1YTNiIi8+PGVsbGlwc2UgY3g9IjEzNCIgY3k9IjEwMCIgcng9IjYiIHJ5PSI5IiBmaWxsPSIjOGQ1YTNiIi8+PGVsbGlwc2UgY3g9IjEwMCIgY3k9Ijk2IiByeD0iMzQiIHJ5PSI0MCIgZmlsbD0idXJsKCNmKSIvPjxlbGxpcHNlIGN4PSI4NyIgY3k9Ijk4IiByeD0iMyIgcnk9IjMuNCIgZmlsbD0iIzJhMWQxOCIvPjxlbGxpcHNlIGN4PSIxMTMiIGN5PSI5OCIgcng9IjMiIHJ5PSIzLjQiIGZpbGw9IiMyYTFkMTgiLz48cGF0aCBkPSJNODkgMTE3IEM5NSAxMjIgMTA1IDEyMiAxMTEgMTE3IiBzdHJva2U9IiM1YTJlMjIiIHN0cm9rZS13aWR0aD0iMi42IiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48L3N2Zz4=');background-size:cover;background-position:center}
+.ph-0,.photo.ph-0{background-image:url('https://loremflickr.com/600/720/portrait,woman,smiling?lock=31'),url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48ZGVmcz48cmFkaWFsR3JhZGllbnQgaWQ9ImwiIGN4PSIzNSUiIGN5PSIyNSUiIHI9IjgwJSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmIiBzdG9wLW9wYWNpdHk9Ii41NSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2ZmZiIgc3RvcC1vcGFjaXR5PSIwIi8+PC9yYWRpYWxHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9ImYiIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNmZmYiIHN0b3Atb3BhY2l0eT0iLjE4Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMDAwIiBzdG9wLW9wYWNpdHk9Ii4xMiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjZDhlNmUxIi8+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9InVybCgjbCkiLz48Y2lyY2xlIGN4PSIxMDAiIGN5PSI3OCIgcj0iNTAiIGZpbGw9IiMxZjE0MTAiLz48Y2lyY2xlIGN4PSI2MiIgY3k9Ijk2IiByPSIyMiIgZmlsbD0iIzFmMTQxMCIvPjxjaXJjbGUgY3g9IjEzOCIgY3k9Ijk2IiByPSIyMiIgZmlsbD0iIzFmMTQxMCIvPjxjaXJjbGUgY3g9Ijc2IiBjeT0iNTgiIHI9IjIyIiBmaWxsPSIjMWYxNDEwIi8+PGNpcmNsZSBjeD0iMTI0IiBjeT0iNTgiIHI9IjIyIiBmaWxsPSIjMWYxNDEwIi8+PHBhdGggZD0iTTI4IDIwMCBDMzAgMTU4IDYwIDE0MCAxMDAgMTQwIEMxNDAgMTQwIDE3MCAxNTggMTcyIDIwMCBaIiBmaWxsPSIjZTliOTQ5Ii8+PHBhdGggZD0iTTg0IDEyMiBMMTE2IDEyMiBMMTE0IDE0OCBDMTA2IDE1NiA5NCAxNTYgODYgMTQ4IFoiIGZpbGw9IiM4ZDVhM2IiLz48cGF0aCBkPSJNODYgMTQwIEM5NCAxNTAgMTA2IDE1MCAxMTQgMTQwIEwxMTIgMTQ4IEMxMDQgMTU2IDk2IDE1NiA4OCAxNDggWiIgZmlsbD0iIzAwMCIgb3BhY2l0eT0iLjEyIi8+PGVsbGlwc2UgY3g9IjEwMCIgY3k9Ijk2IiByeD0iMzQiIHJ5PSI0MCIgZmlsbD0iIzhkNWEzYiIvPjxlbGxpcHNlIGN4PSI2NiIgY3k9IjEwMCIgcng9IjYiIHJ5PSI5IiBmaWxsPSIjOGQ1YTNiIi8+PGVsbGlwc2UgY3g9IjEzNCIgY3k9IjEwMCIgcng9IjYiIHJ5PSI5IiBmaWxsPSIjOGQ1YTNiIi8+PGVsbGlwc2UgY3g9IjEwMCIgY3k9Ijk2IiByeD0iMzQiIHJ5PSI0MCIgZmlsbD0idXJsKCNmKSIvPjxlbGxpcHNlIGN4PSI4NyIgY3k9Ijk4IiByeD0iMyIgcnk9IjMuNCIgZmlsbD0iIzJhMWQxOCIvPjxlbGxpcHNlIGN4PSIxMTMiIGN5PSI5OCIgcng9IjMiIHJ5PSIzLjQiIGZpbGw9IiMyYTFkMTgiLz48cGF0aCBkPSJNODkgMTE3IEM5NSAxMjIgMTA1IDEyMiAxMTEgMTE3IiBzdHJva2U9IiM1YTJlMjIiIHN0cm9rZS13aWR0aD0iMi42IiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48L3N2Zz4=');background-size:cover;background-position:center}
+.ph-1,.photo.ph-1{background-image:url('https://loremflickr.com/600/720/portrait,man,beard?lock=17'),url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48ZGVmcz48cmFkaWFsR3JhZGllbnQgaWQ9ImwiIGN4PSIzNSUiIGN5PSIyNSUiIHI9IjgwJSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmIiBzdG9wLW9wYWNpdHk9Ii41NSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2ZmZiIgc3RvcC1vcGFjaXR5PSIwIi8+PC9yYWRpYWxHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9ImYiIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNmZmYiIHN0b3Atb3BhY2l0eT0iLjE4Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMDAwIiBzdG9wLW9wYWNpdHk9Ii4xMiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjZTZkY2NkIi8+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9InVybCgjbCkiLz48cGF0aCBkPSJNMjggMjAwIEMzMCAxNTggNjAgMTQwIDEwMCAxNDAgQzE0MCAxNDAgMTcwIDE1OCAxNzIgMjAwIFoiIGZpbGw9IiMzZDZiOGYiLz48cGF0aCBkPSJNODQgMTIyIEwxMTYgMTIyIEwxMTQgMTQ4IEMxMDYgMTU2IDk0IDE1NiA4NiAxNDggWiIgZmlsbD0iI2M1OGM2MiIvPjxwYXRoIGQ9Ik04NiAxNDAgQzk0IDE1MCAxMDYgMTUwIDExNCAxNDAgTDExMiAxNDggQzEwNCAxNTYgOTYgMTU2IDg4IDE0OCBaIiBmaWxsPSIjMDAwIiBvcGFjaXR5PSIuMTIiLz48ZWxsaXBzZSBjeD0iMTAwIiBjeT0iOTYiIHJ4PSIzNCIgcnk9IjQwIiBmaWxsPSIjYzU4YzYyIi8+PGVsbGlwc2UgY3g9IjY2IiBjeT0iMTAwIiByeD0iNiIgcnk9IjkiIGZpbGw9IiNjNThjNjIiLz48ZWxsaXBzZSBjeD0iMTM0IiBjeT0iMTAwIiByeD0iNiIgcnk9IjkiIGZpbGw9IiNjNThjNjIiLz48ZWxsaXBzZSBjeD0iMTAwIiBjeT0iOTYiIHJ4PSIzNCIgcnk9IjQwIiBmaWxsPSJ1cmwoI2YpIi8+PHBhdGggZD0iTTYyIDg0IEM2MCA1NCA4MiA0NCAxMDAgNDQgQzEyMCA0NCAxNDAgNTQgMTM4IDg0IEMxMjYgNzAgNzYgNzAgNjIgODQgWiIgZmlsbD0iIzJiMWQxNiIvPjxlbGxpcHNlIGN4PSI4NyIgY3k9Ijk4IiByeD0iMyIgcnk9IjMuNCIgZmlsbD0iIzJhMWQxOCIvPjxlbGxpcHNlIGN4PSIxMTMiIGN5PSI5OCIgcng9IjMiIHJ5PSIzLjQiIGZpbGw9IiMyYTFkMTgiLz48cGF0aCBkPSJNODkgMTE3IEM5NSAxMjIgMTA1IDEyMiAxMTEgMTE3IiBzdHJva2U9IiM1YTJlMjIiIHN0cm9rZS13aWR0aD0iMi42IiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48L3N2Zz4=');background-size:cover;background-position:center}
+.ph-2,.photo.ph-2{background-image:url('https://loremflickr.com/600/720/portrait,woman,office?lock=44'),url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48ZGVmcz48cmFkaWFsR3JhZGllbnQgaWQ9ImwiIGN4PSIzNSUiIGN5PSIyNSUiIHI9IjgwJSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmIiBzdG9wLW9wYWNpdHk9Ii41NSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2ZmZiIgc3RvcC1vcGFjaXR5PSIwIi8+PC9yYWRpYWxHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9ImYiIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNmZmYiIHN0b3Atb3BhY2l0eT0iLjE4Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMDAwIiBzdG9wLW9wYWNpdHk9Ii4xMiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjZTRlMWVlIi8+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9InVybCgjbCkiLz48cGF0aCBkPSJNNTAgOTYgQzUwIDUwIDc1IDM2IDEwMCAzNiBDMTI1IDM2IDE1MCA1MCAxNTAgOTYgTDE1NiAxNzAgTDQ0IDE3MCBaIiBmaWxsPSIjMTIwYzBhIi8+PHBhdGggZD0iTTI4IDIwMCBDMzAgMTU4IDYwIDE0MCAxMDAgMTQwIEMxNDAgMTQwIDE3MCAxNTggMTcyIDIwMCBaIiBmaWxsPSIjN2EzYjUyIi8+PHBhdGggZD0iTTg0IDEyMiBMMTE2IDEyMiBMMTE0IDE0OCBDMTA2IDE1NiA5NCAxNTYgODYgMTQ4IFoiIGZpbGw9IiNhODZmNGMiLz48cGF0aCBkPSJNODYgMTQwIEM5NCAxNTAgMTA2IDE1MCAxMTQgMTQwIEwxMTIgMTQ4IEMxMDQgMTU2IDk2IDE1NiA4OCAxNDggWiIgZmlsbD0iIzAwMCIgb3BhY2l0eT0iLjEyIi8+PGVsbGlwc2UgY3g9IjEwMCIgY3k9Ijk2IiByeD0iMzQiIHJ5PSI0MCIgZmlsbD0iI2E4NmY0YyIvPjxlbGxpcHNlIGN4PSI2NiIgY3k9IjEwMCIgcng9IjYiIHJ5PSI5IiBmaWxsPSIjYTg2ZjRjIi8+PGVsbGlwc2UgY3g9IjEzNCIgY3k9IjEwMCIgcng9IjYiIHJ5PSI5IiBmaWxsPSIjYTg2ZjRjIi8+PGVsbGlwc2UgY3g9IjEwMCIgY3k9Ijk2IiByeD0iMzQiIHJ5PSI0MCIgZmlsbD0idXJsKCNmKSIvPjxlbGxpcHNlIGN4PSI4NyIgY3k9Ijk4IiByeD0iMyIgcnk9IjMuNCIgZmlsbD0iIzJhMWQxOCIvPjxlbGxpcHNlIGN4PSIxMTMiIGN5PSI5OCIgcng9IjMiIHJ5PSIzLjQiIGZpbGw9IiMyYTFkMTgiLz48cGF0aCBkPSJNODkgMTE3IEM5NSAxMjIgMTA1IDEyMiAxMTEgMTE3IiBzdHJva2U9IiM1YTJlMjIiIHN0cm9rZS13aWR0aD0iMi42IiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48L3N2Zz4=');background-size:cover;background-position:center}
+.ph-3,.photo.ph-3{background-image:url('https://loremflickr.com/600/720/portrait,man,glasses?lock=8'),url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48ZGVmcz48cmFkaWFsR3JhZGllbnQgaWQ9ImwiIGN4PSIzNSUiIGN5PSIyNSUiIHI9IjgwJSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmIiBzdG9wLW9wYWNpdHk9Ii41NSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2ZmZiIgc3RvcC1vcGFjaXR5PSIwIi8+PC9yYWRpYWxHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9ImYiIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNmZmYiIHN0b3Atb3BhY2l0eT0iLjE4Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMDAwIiBzdG9wLW9wYWNpdHk9Ii4xMiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjZGZlOWQ2Ii8+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9InVybCgjbCkiLz48cGF0aCBkPSJNMjggMjAwIEMzMCAxNTggNjAgMTQwIDEwMCAxNDAgQzE0MCAxNDAgMTcwIDE1OCAxNzIgMjAwIFoiIGZpbGw9IiMyZjRhM2EiLz48cGF0aCBkPSJNODQgMTIyIEwxMTYgMTIyIEwxMTQgMTQ4IEMxMDYgMTU2IDk0IDE1NiA4NiAxNDggWiIgZmlsbD0iI2U2YmZhMCIvPjxwYXRoIGQ9Ik04NiAxNDAgQzk0IDE1MCAxMDYgMTUwIDExNCAxNDAgTDExMiAxNDggQzEwNCAxNTYgOTYgMTU2IDg4IDE0OCBaIiBmaWxsPSIjMDAwIiBvcGFjaXR5PSIuMTIiLz48ZWxsaXBzZSBjeD0iMTAwIiBjeT0iOTYiIHJ4PSIzNCIgcnk9IjQwIiBmaWxsPSIjZTZiZmEwIi8+PGVsbGlwc2UgY3g9IjY2IiBjeT0iMTAwIiByeD0iNiIgcnk9IjkiIGZpbGw9IiNlNmJmYTAiLz48ZWxsaXBzZSBjeD0iMTM0IiBjeT0iMTAwIiByeD0iNiIgcnk9IjkiIGZpbGw9IiNlNmJmYTAiLz48ZWxsaXBzZSBjeD0iMTAwIiBjeT0iOTYiIHJ4PSIzNCIgcnk9IjQwIiBmaWxsPSJ1cmwoI2YpIi8+PHBhdGggZD0iTTYyIDg0IEM2MCA1NCA4MiA0NCAxMDAgNDQgQzEyMCA0NCAxNDAgNTQgMTM4IDg0IEMxMjYgNzAgNzYgNzAgNjIgODQgWiIgZmlsbD0iI2I1OGE0ZSIvPjxlbGxpcHNlIGN4PSI4NyIgY3k9Ijk4IiByeD0iMyIgcnk9IjMuNCIgZmlsbD0iIzJhMWQxOCIvPjxlbGxpcHNlIGN4PSIxMTMiIGN5PSI5OCIgcng9IjMiIHJ5PSIzLjQiIGZpbGw9IiMyYTFkMTgiLz48cGF0aCBkPSJNODkgMTE3IEM5NSAxMjIgMTA1IDEyMiAxMTEgMTE3IiBzdHJva2U9IiM1YTJlMjIiIHN0cm9rZS13aWR0aD0iMi42IiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48L3N2Zz4=');background-size:cover;background-position:center}
+.ph-4,.photo.ph-4{background-image:url('https://loremflickr.com/600/720/portrait,woman,professional?lock=52'),url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48ZGVmcz48cmFkaWFsR3JhZGllbnQgaWQ9ImwiIGN4PSIzNSUiIGN5PSIyNSUiIHI9IjgwJSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmIiBzdG9wLW9wYWNpdHk9Ii41NSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2ZmZiIgc3RvcC1vcGFjaXR5PSIwIi8+PC9yYWRpYWxHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9ImYiIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNmZmYiIHN0b3Atb3BhY2l0eT0iLjE4Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMDAwIiBzdG9wLW9wYWNpdHk9Ii4xMiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjZWZkOWNmIi8+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9InVybCgjbCkiLz48cGF0aCBkPSJNNTQgMTAwIEM1MiA1NiA3NiA0MCAxMDAgNDAgQzEyNCA0MCAxNDggNTYgMTQ2IDEwMCBMMTQ4IDEyOCBMNTIgMTI4IFoiIGZpbGw9IiM2YjNhMjQiLz48cGF0aCBkPSJNMjggMjAwIEMzMCAxNTggNjAgMTQwIDEwMCAxNDAgQzE0MCAxNDAgMTcwIDE1OCAxNzIgMjAwIFoiIGZpbGw9IiMxZjJhNDQiLz48cGF0aCBkPSJNODQgMTIyIEwxMTYgMTIyIEwxMTQgMTQ4IEMxMDYgMTU2IDk0IDE1NiA4NiAxNDggWiIgZmlsbD0iI2YwY2RiNCIvPjxwYXRoIGQ9Ik04NiAxNDAgQzk0IDE1MCAxMDYgMTUwIDExNCAxNDAgTDExMiAxNDggQzEwNCAxNTYgOTYgMTU2IDg4IDE0OCBaIiBmaWxsPSIjMDAwIiBvcGFjaXR5PSIuMTIiLz48ZWxsaXBzZSBjeD0iMTAwIiBjeT0iOTYiIHJ4PSIzNCIgcnk9IjQwIiBmaWxsPSIjZjBjZGI0Ii8+PGVsbGlwc2UgY3g9IjY2IiBjeT0iMTAwIiByeD0iNiIgcnk9IjkiIGZpbGw9IiNmMGNkYjQiLz48ZWxsaXBzZSBjeD0iMTM0IiBjeT0iMTAwIiByeD0iNiIgcnk9IjkiIGZpbGw9IiNmMGNkYjQiLz48ZWxsaXBzZSBjeD0iMTAwIiBjeT0iOTYiIHJ4PSIzNCIgcnk9IjQwIiBmaWxsPSJ1cmwoI2YpIi8+PGVsbGlwc2UgY3g9Ijg3IiBjeT0iOTgiIHJ4PSIzIiByeT0iMy40IiBmaWxsPSIjMmExZDE4Ii8+PGVsbGlwc2UgY3g9IjExMyIgY3k9Ijk4IiByeD0iMyIgcnk9IjMuNCIgZmlsbD0iIzJhMWQxOCIvPjxwYXRoIGQ9Ik04OSAxMTcgQzk1IDEyMiAxMDUgMTIyIDExMSAxMTciIHN0cm9rZT0iIzVhMmUyMiIgc3Ryb2tlLXdpZHRoPSIyLjYiIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjwvc3ZnPg==');background-size:cover;background-position:center}
+.ph-5,.photo.ph-5{background-image:url('https://loremflickr.com/600/720/portrait,young,man?lock=63'),url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48ZGVmcz48cmFkaWFsR3JhZGllbnQgaWQ9ImwiIGN4PSIzNSUiIGN5PSIyNSUiIHI9IjgwJSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmIiBzdG9wLW9wYWNpdHk9Ii41NSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2ZmZiIgc3RvcC1vcGFjaXR5PSIwIi8+PC9yYWRpYWxHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9ImYiIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNmZmYiIHN0b3Atb3BhY2l0eT0iLjE4Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMDAwIiBzdG9wLW9wYWNpdHk9Ii4xMiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjZGJlNGVmIi8+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9InVybCgjbCkiLz48cGF0aCBkPSJNMjggMjAwIEMzMCAxNTggNjAgMTQwIDEwMCAxNDAgQzE0MCAxNDAgMTcwIDE1OCAxNzIgMjAwIFoiIGZpbGw9IiNkOTY2M2QiLz48cGF0aCBkPSJNODQgMTIyIEwxMTYgMTIyIEwxMTQgMTQ4IEMxMDYgMTU2IDk0IDE1NiA4NiAxNDggWiIgZmlsbD0iI2Q5YTk4MiIvPjxwYXRoIGQ9Ik04NiAxNDAgQzk0IDE1MCAxMDYgMTUwIDExNCAxNDAgTDExMiAxNDggQzEwNCAxNTYgOTYgMTU2IDg4IDE0OCBaIiBmaWxsPSIjMDAwIiBvcGFjaXR5PSIuMTIiLz48ZWxsaXBzZSBjeD0iMTAwIiBjeT0iOTYiIHJ4PSIzNCIgcnk9IjQwIiBmaWxsPSIjZDlhOTgyIi8+PGVsbGlwc2UgY3g9IjY2IiBjeT0iMTAwIiByeD0iNiIgcnk9IjkiIGZpbGw9IiNkOWE5ODIiLz48ZWxsaXBzZSBjeD0iMTM0IiBjeT0iMTAwIiByeD0iNiIgcnk9IjkiIGZpbGw9IiNkOWE5ODIiLz48ZWxsaXBzZSBjeD0iMTAwIiBjeT0iOTYiIHJ4PSIzNCIgcnk9IjQwIiBmaWxsPSJ1cmwoI2YpIi8+PHBhdGggZD0iTTYwIDg2IEM1OCA1MiA4NCA0MCAxMDYgNDIgQzEzMCA0NCAxNDYgNTggMTQyIDg2IEMxMzIgNzAgMTEwIDYyIDg0IDcwIFoiIGZpbGw9IiMxNTExMGYiLz48ZWxsaXBzZSBjeD0iODciIGN5PSI5OCIgcng9IjMiIHJ5PSIzLjQiIGZpbGw9IiMyYTFkMTgiLz48ZWxsaXBzZSBjeD0iMTEzIiBjeT0iOTgiIHJ4PSIzIiByeT0iMy40IiBmaWxsPSIjMmExZDE4Ii8+PHBhdGggZD0iTTg5IDExNyBDOTUgMTIyIDEwNSAxMjIgMTExIDExNyIgc3Ryb2tlPSIjNWEyZTIyIiBzdHJva2Utd2lkdGg9IjIuNiIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PC9zdmc+');background-size:cover;background-position:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="brand" href="#">Hallway</a>
+    <nav><a href="#">How it works</a><a href="#">For professionals</a><a href="#">Log in</a><a class="btn sm" href="#">Sign up</a></nav>
+  </header>
+
+  <section class="hero">
+    <div class="photo ph-hero" role="img" aria-label="Photo of Maya Okafor"></div>
+    <div class="intro">
+      <p class="meet"><b>Maya Okafor</b> Senior product designer at Fernway, a travel app</p>
+      <h1>Ask Maya how she got her first design job.</h1>
+      <p class="lede">She&rsquo;s one of 38 product designers here who make time for students and new grads.</p>
+      <div class="ctas">
+        <a class="btn" href="#">Book a free intro</a>
+        <a class="btn text" href="#fields">Pick another field</a>
+      </div>
+      <dl class="facts">
+        <div><dt>In the field</dt><dd>7 years</dd></div>
+        <div><dt>Chats so far</dt><dd>142</dd></div>
+        <div><dt>First chat</dt><dd>Free</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="fields" id="fields">
+    <h2>Which field are you curious about?</h2>
+    <p>Pick one and we&rsquo;ll show you who&rsquo;s there.</p>
+    <div class="field-row">
+<a href="#" class="on" aria-current=page>Product design</a>
+<a href="#" class="">Software engineering</a>
+<a href="#" class="">Marketing</a>
+<a href="#" class="">Finance</a>
+<a href="#" class="">Healthcare</a>
+<a href="#" class="">Law</a>
+<a href="#" class="">Teaching</a>
+<a href="#" class="">Data science</a>
+<a href="#" class="">Nonprofits</a>
+<a href="#" class="">Architecture</a>
+<a href="#" class="">Journalism</a>
+<a href="#" class="">Consulting</a>
+    </div>
+  </section>
+
+  <div class="gal-head">
+    <h2>More people in Product design</h2>
+    <a href="#">See all 38</a>
+  </div>
+  <section class="gallery">
+<figure class="g g0">
+  <div class="photo ph-1" role="img" aria-label="Photo of Daniel Reyes"></div>
+  <figcaption>
+    <span class="nm">Daniel Reyes</span>
+    <span class="rl">Design lead, Brightwell Health</span>
+    <span class="pr">$30 / 30 min</span>
+  </figcaption>
+</figure>
+<figure class="g g1">
+  <div class="photo ph-2" role="img" aria-label="Photo of Priya Nair"></div>
+  <figcaption>
+    <span class="nm">Priya Nair</span>
+    <span class="rl">UX researcher, Tallgrass Bank</span>
+    <span class="pr">$20 / 30 min</span>
+  </figcaption>
+</figure>
+<figure class="g g2">
+  <div class="photo ph-3" role="img" aria-label="Photo of Tomás Lindqvist"></div>
+  <figcaption>
+    <span class="nm">Tomás Lindqvist</span>
+    <span class="rl">Freelance brand and product designer, Self-employed</span>
+    <span class="pr free">Free</span>
+  </figcaption>
+</figure>
+<figure class="g g3">
+  <div class="photo ph-4" role="img" aria-label="Photo of Grace Whitfield"></div>
+  <figcaption>
+    <span class="nm">Grace Whitfield</span>
+    <span class="rl">Head of design, Loop &amp; Line, logistics</span>
+    <span class="pr">$45 / 30 min</span>
+  </figcaption>
+</figure>
+<figure class="g g4">
+  <div class="photo ph-5" role="img" aria-label="Photo of Kenji Abe"></div>
+  <figcaption>
+    <span class="nm">Kenji Abe</span>
+    <span class="rl">Product designer, Harbor Learning</span>
+    <span class="pr free">Free</span>
+  </figcaption>
+</figure>
+  </section>
+
+  <section class="voices">
+    <blockquote>&ldquo;I was scared to message strangers on LinkedIn. Here, people actually expect you.&rdquo;<cite>Lucía Ortega, graduated in May</cite></blockquote>
+    <blockquote>&ldquo;Grace walked me through my offer line by line. I asked for more and got it.&rdquo;<cite>Dev Malhotra, junior designer</cite></blockquote>
+  </section>
+
+  <footer><span>Hallway</span><span>Professionals set their own price. Many offer a free first chat.</span></footer>
+</div>
+</body>
+</html>
